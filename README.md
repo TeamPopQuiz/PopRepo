@@ -1,7 +1,7 @@
 # Boilermaker
 
 _Good things come in pairs_
-Collaborator: Eda,
+Collaborator: Eda, Katie
 Looking to mix up a backend with `express`/`sequelize` and a frontend with
 `react`/`redux`? That's `boilermaker`!
 
@@ -223,3 +223,5 @@ production server to be cluttered up with dev dependencies like
 git-tracking to be cluttered with production build files like
 `bundle.js`! By doing these steps, we make sure our development and
 production environments both stay nice and clean!
+
+KT wuz here
