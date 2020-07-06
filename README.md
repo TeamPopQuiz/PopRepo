@@ -1,7 +1,7 @@
 # Boilermaker
 
 _Good things come in pairs_
-Collaborator: Eda, Katie
+Collaborator: Eda, Katie, Jackie
 Looking to mix up a backend with `express`/`sequelize` and a frontend with
 `react`/`redux`? That's `boilermaker`!
 
