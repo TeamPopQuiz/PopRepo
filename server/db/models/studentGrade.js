@@ -10,7 +10,7 @@ const StudentGrade = db.define('studentGrade', {
     type: Sequelize.DATEONLY,
     allowNull: false
   },
-  subject: {
+  quizSubject: {
     type: Sequelize.STRING,
     allowNull: false
   },

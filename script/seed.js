@@ -18,46 +18,51 @@ async function seed() {
 
   //Creates an array of teachers
   const teacherArray = [
-    'celine',
-    'julissa',
-    'martha',
-    'esther',
-    'jennifer',
-    'emma',
-    'jasmin'
+    {firstName: 'celine', lastName: 'chole'},
+    {firstName: 'julissa', lastName: 'napolitano'},
+    {firstName: 'martha', lastName: 'betterton'},
+    {firstName: 'esther', lastName: 'kim'},
+    {firstName: 'jennifer', lastName: 'nugent'},
+    {firstName: 'emma', lastName: 'fox'},
+    {firstName: 'jasmin', lastName: 'soltani'}
   ]
 
   const teachers = await Promise.all(
     teacherArray.map(teacher =>
-      Teacher.create({email: `${teacher}@teacher.com`, password: '123'})
+      Teacher.create({
+        email: `${teacher.firstName}@teacher.com`,
+        password: '123',
+        firstName: teacher.firstName,
+        lastName: teacher.lastName
+      })
     )
   )
 
   //Creates an array of students
   const studentArray = [
-    'jackie',
-    'katie',
-    'lauren',
-    'eda',
-    'karolina',
-    'raghdaa',
-    'alison',
-    'alesin',
-    'kate',
-    'venessa',
-    'chidi',
-    'mary',
-    'danielle',
-    'felicia',
-    'jianna',
-    'elle',
-    'kitty',
-    'yang'
+    {firstName: 'jackie', lastName: 'francis'},
+    {firstName: 'katie', lastName: 'escoto'},
+    {firstName: 'lauren', lastName: 'menzies'},
+    {firstName: 'eda', lastName: 'deniz'},
+    {firstName: 'karolina', lastName: 'porcioncula'},
+    {firstName: 'raghdaa', lastName: 'barmo'},
+    {firstName: 'alesin', lastName: 'tipler'},
+    {firstName: 'alison', lastName: 'hernandez'},
+    {firstName: 'kate', lastName: 'norton'},
+    {firstName: 'venessa', lastName: 'campbell'},
+    {firstName: 'chidi', lastName: 'okeke'},
+    {firstName: 'mary', lastName: 'gordanier'},
+    {firstName: 'danielle', lastName: 'sisk'}
   ]
 
   const students = await Promise.all(
     studentArray.map(student =>
-      Student.create({email: `${student}@student.com`, password: '123'})
+      Student.create({
+        email: `${student.firstName}@student.com`,
+        password: '123',
+        firstName: student.firstName,
+        lastName: student.lastName
+      })
     )
   )
 
@@ -137,7 +142,7 @@ async function seed() {
     StudentGrade.create({
       quizName: 'Science Quiz',
       dateOfQuiz: '2020-07-06',
-      subject: 'Science',
+      quizSubject: 'Science',
       numOfQuestions: 10,
       correctAnswers: 7,
       incorrectAnswers: 2
@@ -150,6 +155,7 @@ async function seed() {
   await templates[0].addTicketQuestion(scienceQuestions[1])
   //await students[0].addStudentGrade(jackiesGrades[0])
   await students[0].addTicketQuestion(scienceQuestions[0])
+  await students[0].addSubject(subjects[0])
   // let jackieQuestionAnswer = await StudentQuestion.findAll()
   // console.log(jackieQuestionAnswer)
 

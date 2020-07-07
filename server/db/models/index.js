@@ -24,19 +24,29 @@ Teacher.hasMany(StudentGrade)
 
 //Student relationships
 Student.hasMany(StudentGrade)
+Student.belongsTo(Teacher)
 Student.belongsToMany(TicketQuestion, {through: 'students_ticketQuestions'})
 Student.belongsToMany(Subject, {through: 'subject_student'})
 
 //Subject relationships
 Subject.hasMany(TicketTemplate)
 Subject.hasMany(StudentGrade)
+Subject.belongsTo(Teacher)
 Subject.belongsToMany(Student, {through: 'subject_student'})
 
 //TicketTemplate relationships
 TicketTemplate.hasMany(TicketQuestion)
+TicketTemplate.belongsTo(Teacher)
+TicketTemplate.belongsTo(Subject)
 
 //TicketQuestion relationships
 TicketQuestion.belongsToMany(Student, {through: 'students_ticketQuestions'})
+TicketQuestion.belongsTo(TicketTemplate)
+
+//STudent grade relationships
+StudentGrade.belongsTo(Teacher)
+StudentGrade.belongsTo(Student)
+StudentGrade.belongsTo(Subject)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
