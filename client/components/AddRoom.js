@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {setSubject} from '../store/user'
 
-export default class AddRoom extends Component {
-  constructor() {
-    super()
+export class AddRoom extends Component {
+  constructor(props) {
+    super(props)
 
     this.state = {
       subjectName: '',
@@ -10,15 +12,29 @@ export default class AddRoom extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange() {}
+  handleChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault()
+    this.props.addRoom(this.state)
+    this.setState({
+      subjectName: '',
+      subjectCode: ''
+    })
+  }
 
   render() {
     return (
       <div>
         <h2>Add New Room</h2>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             name="subjectName"
@@ -33,8 +49,34 @@ export default class AddRoom extends Component {
             vlaue={this.state.subjectCode}
             placeholder="Subject Code"
           />
+          {/* <h3>Student Roster</h3> */}
+          {/* {
+              this.props.students.map(student => {
+                return (
+                  <label key={student.id}>
+                    <input  type="checkbox" name={student.firstName} onChange={this.handleChange} value={student.email} />
+                    {student.email}
+                  </label>
+                )
+              })
+            } */}
+          <button type="submit">Create Room</button>
         </form>
       </div>
     )
   }
 }
+
+const mapState = state => {
+  return {
+    students: state.user.students
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    addRoom: obj => dispatch(setSubject(obj))
+  }
+}
+
+export default connect(mapState, mapDispatch)(AddRoom)

@@ -1,10 +1,14 @@
 const router = require('express').Router()
 const Teacher = require('../db/models/teacher')
+const {Student, Subject} = require('../db/models')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
-    const user = await Teacher.findOne({where: {email: req.body.email}})
+    const user = await Teacher.findOne({
+      where: {email: req.body.email},
+      include: [{model: Student}, {model: Subject}]
+    })
     if (!user) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')

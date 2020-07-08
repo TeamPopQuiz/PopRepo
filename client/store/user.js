@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const ADD_TEACHER_SUBJECT = 'ADD_TEACHER_SUBJECT'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const addSubject = teacher => ({type: ADD_TEACHER_SUBJECT, teacher})
 
 /**
  * THUNK CREATORS
@@ -56,6 +58,20 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const setSubject = subj => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/users/add-subject-room', {
+        name: subj.subjectName,
+        roomCode: subj.subjectCode
+      })
+      dispatch(addSubject(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
@@ -65,6 +81,8 @@ export default function(state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case ADD_TEACHER_SUBJECT:
+      return action.teacher
     default:
       return state
   }
