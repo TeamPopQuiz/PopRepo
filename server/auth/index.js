@@ -1,13 +1,17 @@
 const router = require('express').Router()
 const Teacher = require('../db/models/teacher')
 const Student = require('../db/models/student')
+const Subject = require('../db/models/subject')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
     let user
     if (req.body.role === 'teacher') {
-      user = await Teacher.findOne({where: {email: req.body.email}})
+      user = await Teacher.findOne({
+        where: {email: req.body.email},
+        include: [{model: Student}, {model: Subject}]
+      })
     } else if (req.body.role === 'student') {
       user = await Student.findOne({where: {email: req.body.email}})
     }
