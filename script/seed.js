@@ -7,64 +7,58 @@ const {
   Subject,
   Teacher,
   TicketQuestion,
-  TicketTemplate
+  TicketTemplate,
+  User
 } = require('../server/db/models')
 const StudentQuestion = require('../server/db/models/students_ticketQuestions')
-// const { Sequelize } = require('sequelize/types')
+const {Sequelize, Op} = require('sequelize')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   //Creates an array of teachers
-  const teacherArray = [
-    {firstName: 'celine', lastName: 'chole'},
-    {firstName: 'julissa', lastName: 'napolitano'},
-    {firstName: 'martha', lastName: 'betterton'},
-    {firstName: 'esther', lastName: 'kim'},
-    {firstName: 'jennifer', lastName: 'nugent'},
-    {firstName: 'emma', lastName: 'fox'},
-    {firstName: 'jasmin', lastName: 'soltani'}
+  const userArray = [
+    {firstName: 'celine', lastName: 'chole', role: 'teacher'},
+    {firstName: 'julissa', lastName: 'napolitano', role: 'teacher'},
+    {firstName: 'martha', lastName: 'betterton', role: 'teacher'},
+    {firstName: 'esther', lastName: 'kim', role: 'teacher'},
+    {firstName: 'jennifer', lastName: 'nugent', role: 'teacher'},
+    {firstName: 'emma', lastName: 'fox', role: 'teacher'},
+    {firstName: 'jasmin', lastName: 'soltani', role: 'teacher'},
+    {firstName: 'jackie', lastName: 'francis', role: 'student'},
+    {firstName: 'katie', lastName: 'escoto', role: 'student'},
+    {firstName: 'lauren', lastName: 'menzies', role: 'student'},
+    {firstName: 'eda', lastName: 'deniz', role: 'student'},
+    {firstName: 'karolina', lastName: 'porcioncula', role: 'student'},
+    {firstName: 'raghdaa', lastName: 'barmo', role: 'student'},
+    {firstName: 'alesin', lastName: 'tipler', role: 'student'},
+    {firstName: 'alison', lastName: 'hernandez', role: 'student'},
+    {firstName: 'kate', lastName: 'norton', role: 'student'},
+    {firstName: 'venessa', lastName: 'campbell', role: 'student'},
+    {firstName: 'chidi', lastName: 'okeke', role: 'student'},
+    {firstName: 'mary', lastName: 'gordanier', role: 'student'},
+    {firstName: 'danielle', lastName: 'sisk', role: 'student'}
   ]
 
-  const teachers = await Promise.all(
-    teacherArray.map(teacher =>
-      Teacher.create({
-        email: `${teacher.firstName}@teacher.com`,
+  const users = await Promise.all(
+    userArray.map(async user => {
+      await User.create({
+        email: `${user.firstName}@${user.role}.com`,
         password: '123',
-        firstName: teacher.firstName,
-        lastName: teacher.lastName
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role
       })
-    )
+      //newTOrS.createTeacherOrStudent(newTOrS.firstName, newTOrS.lastName, newTOrS.role)
+    })
   )
 
-  //Creates an array of students
-  const studentArray = [
-    {firstName: 'jackie', lastName: 'francis'},
-    {firstName: 'katie', lastName: 'escoto'},
-    {firstName: 'lauren', lastName: 'menzies'},
-    {firstName: 'eda', lastName: 'deniz'},
-    {firstName: 'karolina', lastName: 'porcioncula'},
-    {firstName: 'raghdaa', lastName: 'barmo'},
-    {firstName: 'alesin', lastName: 'tipler'},
-    {firstName: 'alison', lastName: 'hernandez'},
-    {firstName: 'kate', lastName: 'norton'},
-    {firstName: 'venessa', lastName: 'campbell'},
-    {firstName: 'chidi', lastName: 'okeke'},
-    {firstName: 'mary', lastName: 'gordanier'},
-    {firstName: 'danielle', lastName: 'sisk'}
-  ]
+  let userCreateArray = await User.findAll()
 
-  const students = await Promise.all(
-    studentArray.map(student =>
-      Student.create({
-        email: `${student.firstName}@student.com`,
-        password: '123',
-        firstName: student.firstName,
-        lastName: student.lastName
-      })
-    )
-  )
+  userCreateArray.forEach(user => {
+    user.createTeacherOrStudent()
+  })
 
   //Creates an array of subjects
   const subjectArray = [
@@ -96,12 +90,6 @@ async function seed() {
         threshold: template.threshold
       })
     )
-  )
-
-  console.log(
-    `seeded ${teachers.length} teachers, ${students.length} students, ${
-      subjects.length
-    } subjects, ${templates.length} ticket templates seeded successfully`
   )
 
   const mathQuestions = await Promise.all([
@@ -154,16 +142,43 @@ async function seed() {
   await templates[0].addTicketQuestion(scienceQuestions[0])
   await templates[0].addTicketQuestion(scienceQuestions[1])
   //await students[0].addStudentGrade(jackiesGrades[0])
-  await students[0].addTicketQuestion(scienceQuestions[0])
-  await students[0].addSubject(subjects[0])
   // let jackieQuestionAnswer = await StudentQuestion.findAll()
   // console.log(jackieQuestionAnswer)
 
-  await teachers[0].addStudentGrade(jackiesGrades[0])
-  await teachers[0].addStudent(students[0])
-  await teachers[1].addStudent(students[1])
+  const [julissa, celine, esther] = await Teacher.findAll({
+    where: {
+      [Op.or]: [
+        {firstName: 'julissa'},
+        {firstName: 'celine'},
+        {firstName: 'esther'}
+      ]
+    }
+  })
+
+  const [jackie, lauren, eda, katie, raghdaa, alison] = await Student.findAll({
+    where: {
+      [Op.or]: [
+        {firstName: 'jackie'},
+        {firstName: 'lauren'},
+        {firstName: 'eda'},
+        {firstName: 'katie'},
+        {firstName: 'raghdaa'},
+        {firstName: 'alison'}
+      ]
+    }
+  })
+
+  console.log(`julissa: ${julissa}`)
+  //console.log(jackie)
+  await julissa.addStudents([lauren, katie])
+  await celine.addStudents([eda, jackie])
+  await esther.addStudents([alison, raghdaa])
+  await eda.addTicketQuestion(scienceQuestions[0])
+  await eda.addSubject(subjects[0])
   await subjects[0].addStudentGrade(jackiesGrades[0])
 }
+
+console.log('Seeded successfully!')
 
 // We've separated the `seed` function from the `runSeed` function.
 // This way we can isolate the error handling and exit trapping.
