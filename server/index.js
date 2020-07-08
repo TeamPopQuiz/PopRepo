@@ -33,7 +33,11 @@ passport.serializeUser((user, done) => done(null, user.id))
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await db.models.teacher.findByPk(id)
+    let user = await db.models.teacher.findByPk(id)
+    if (!user) {
+      user = await db.models.student.findByPk(id)
+    }
+    // const user = await db.models.teacher.findByPk(id)
     done(null, user)
   } catch (err) {
     done(err)
