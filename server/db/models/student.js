@@ -35,10 +35,10 @@ const Student = db.define('student', {
   googleId: {
     type: Sequelize.STRING
   },
-  isStudent: {
-    type: Sequelize.BOOLEAN,
+  role: {
+    type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: true
+    defaultValue: 'student'
   }
 })
 
