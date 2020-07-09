@@ -19,3 +19,13 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.form {
+  padding: 20px;
+  text-align: center;
+  padding: 1em;
+  margin: 1em;
+  border: 4px solid black;
+  height: 300px;
+  width: 300px;
+}

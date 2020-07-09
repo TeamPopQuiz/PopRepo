@@ -1,15 +1,30 @@
 const router = require('express').Router()
-const {TicketTemplate} = require('../db/models')
+const {TicketTemplate, TicketQuestion} = require('../db/models')
 module.exports = router
 
 router.post('/createQuiz', async (req, res, next) => {
   try {
-    console.log('this is req body', req.body)
     const quiz = await TicketTemplate.create({
       quizName: req.body.quizName,
       threshold: req.body.threshold
+      //need to add teacherId and subjectId
     })
     res.json(quiz)
+  } catch (error) {
+    console.error(error)
+  }
+})
+
+router.post('/addQuestion', async (req, res, next) => {
+  try {
+    const question = await TicketQuestion.create({
+      question: req.body.question,
+      rightA: req.body.correctAnswer,
+      wrongA1: req.body.wrongAnswer1,
+      wrongA2: req.body.wrongAnswer2,
+      wrongA3: req.body.wrongAnswer3
+    })
+    //need magic method to add tickettemplateId
   } catch (error) {
     console.error(error)
   }
