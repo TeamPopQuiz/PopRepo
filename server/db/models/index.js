@@ -50,7 +50,7 @@ TicketTemplate.belongsTo(Subject)
 TicketQuestion.belongsToMany(Student, {through: 'students_ticketQuestions'})
 TicketQuestion.belongsTo(TicketTemplate)
 
-//STudent grade relationships
+//Student grade relationships
 StudentGrade.belongsTo(Teacher)
 StudentGrade.belongsTo(Student)
 StudentGrade.belongsTo(Subject)
