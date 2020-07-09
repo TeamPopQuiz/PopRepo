@@ -168,8 +168,6 @@ async function seed() {
     }
   })
 
-  console.log(`julissa: ${julissa}`)
-  //console.log(jackie)
   await julissa.addStudents([lauren, katie])
   await celine.addStudents([eda, jackie])
   await esther.addStudents([alison, raghdaa])

@@ -54,9 +54,17 @@ User.prototype.correctPassword = function(candidatePwd) {
 
 User.prototype.createTeacherOrStudent = async function() {
   if (this.role === 'teacher') {
-    await Teacher.create({firstName: this.firstName, lastName: this.lastName})
+    const thisTeacher = await Teacher.create({
+      firstName: this.firstName,
+      lastName: this.lastName
+    })
+    await this.setTeacher(thisTeacher)
   } else if (this.role === 'student') {
-    await Student.create({firstName: this.firstName, lastName: this.lastName})
+    const thisStudent = await Student.create({
+      firstName: this.firstName,
+      lastName: this.lastName
+    })
+    await this.setStudent(thisStudent)
   }
 }
 
