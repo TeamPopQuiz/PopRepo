@@ -8,6 +8,7 @@ const StudentQuestion = require('./students_ticketQuestions')
 // const { Student, StudentGrade, Subject, Teacher, TicketQuestion, TicketTemplate, StudentQuestion } = require('../models')
 const Sequelize = require('sequelize')
 const db = require('../db')
+const User = require('./user')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -16,17 +17,23 @@ const db = require('../db')
  *    BlogPost.belongsTo(User)
  */
 
+//User - One to One with Teachers/Students
+User.hasOne(Teacher)
+User.hasOne(Student)
+
 //Teacher - One to Many relationships
 Teacher.hasMany(Subject)
 Teacher.hasMany(Student)
 Teacher.hasMany(TicketTemplate)
 Teacher.hasMany(StudentGrade)
+Teacher.belongsTo(User)
 
 //Student relationships
 Student.hasMany(StudentGrade)
 Student.belongsTo(Teacher)
 Student.belongsToMany(TicketQuestion, {through: 'students_ticketQuestions'})
 Student.belongsToMany(Subject, {through: 'subject_student'})
+Student.belongsTo(User)
 
 //Subject relationships
 Subject.hasMany(TicketTemplate)
@@ -61,5 +68,6 @@ module.exports = {
   Teacher,
   TicketQuestion,
   TicketTemplate,
-  StudentQuestion
+  StudentQuestion,
+  User
 }
