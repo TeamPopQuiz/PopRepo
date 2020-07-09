@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {addSubject} from '../store/subject'
+import {getStudents} from '../store/students'
 
 export class AddRoom extends Component {
   constructor(props) {
@@ -13,6 +14,10 @@ export class AddRoom extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.getAllStudents()
   }
 
   handleChange(evt) {
@@ -49,17 +54,7 @@ export class AddRoom extends Component {
             value={this.state.subjectCode}
             placeholder="Subject Code"
           />
-          {/* <h3>Student Roster</h3> */}
-          {/* {
-              this.props.students.map(student => {
-                return (
-                  <label key={student.id}>
-                    <input  type="checkbox" name={student.firstName} onChange={this.handleChange} value={student.email} />
-                    {student.email}
-                  </label>
-                )
-              })
-            } */}
+          {/* Will need to add component that allows teachers to assign students to room */}
           <button type="submit">Create Room</button>
         </form>
       </div>
@@ -69,15 +64,15 @@ export class AddRoom extends Component {
 
 const mapState = state => {
   return {
-    students: state.user.students,
-    user: state.user
+    user: state.user,
+    students: state.students
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    addRoomAction: obj => dispatch(addSubject(obj))
-    // getRooms: () => dispatch(getSubjects())
+    addRoomAction: obj => dispatch(addSubject(obj)),
+    getAllStudents: () => dispatch(getStudents())
   }
 }
 
