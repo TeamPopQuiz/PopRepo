@@ -2,17 +2,32 @@ import React from 'react'
 import {getQuizData} from '../store/quizTemplate'
 import {connect} from 'react-redux'
 
-export const QuizResults = props => {
-  const {quiz, quizQuestions, getQuizData} = props
-  const quizId = props.match.params.quizId
+export class QuizResults extends React.Component {
+  componentDidMount() {
+    try {
+      console.log('props', this.props)
+      console.log('inside component id mount')
+      console.log(this.props.match.params.quizId) //1
+      this.props.fetchQuizData(this.props.match.params.quizId)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  render() {
+    console.log('were in the render')
+    const {quiz, quizQuestions, fetchQuizData} = this.props
+    const quizId = this.props.match.params.quizId
 
-  return (
-    <div>
-      <button type="button" onClick={() => props.getQuizData(quizId)}>
-        Test Button
-      </button>
-    </div>
-  )
+    return (
+      <div>
+        <h1>return</h1>
+
+        {/* <button type="button" onClick={() => fetchQuizData(quizId)}>
+          Test Button
+        </button> */}
+      </div>
+    )
+  }
 }
 
 const mapState = state => {
@@ -24,7 +39,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getQuizData: quizId => dispatch(getQuizData(quizId))
+    fetchQuizData: quizId => dispatch(getQuizData(quizId))
   }
 }
 

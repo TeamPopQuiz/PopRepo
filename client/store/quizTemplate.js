@@ -17,18 +17,19 @@ const defaultQuiz = {
 /**
  * ACTION CREATORS
  */
-const getQuiz = (quiz, questions) => ({type: GET_QUIZ, quiz, questions})
+const gotQuiz = (quiz, questions) => ({type: GET_QUIZ, quiz, questions})
 
 /**
  * THUNK CREATORS
  */
-export const getQuizData = quizId => async dispatch => {
-  try {
-    const res = await axios.get(`/quizTemplates/:${quizId}`)
-    console.log(res)
-    dispatch(getQuiz(res.data.quiz, res.data.questions))
-  } catch (err) {
-    console.error(err)
+export const getQuizData = quizId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/quizTemplates/${quizId}`)
+      dispatch(gotQuiz(data))
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 

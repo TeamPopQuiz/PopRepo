@@ -30,14 +30,9 @@ router.get('/quizTemplates/:quizId', async (req, res, next) => {
       where: {
         id: req.params.quizId
       },
-      include: [{model: Teacher}, {model: Subject}]
+      include: [{model: Teacher}, {model: Subject}, {model: TicketQuestion}]
     })
-    const questions = await TicketQuestion.findAll({
-      where: {
-        ticketTemplateId: req.params.quizId
-      }
-    })
-    res.json(quiz, questions)
+    res.json(quiz)
   } catch (err) {
     next(err)
   }
