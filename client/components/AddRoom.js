@@ -76,6 +76,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     addRoom: obj => dispatch(setSubject(obj))
+    // getRooms: () => dispatch(getSubjects())
   }
 }
 
