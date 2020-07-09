@@ -14,3 +14,20 @@ router.get('/', async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/', async (req, res, next) => {
+  try {
+    const newSubject = await Subject.create({
+      name: req.body.subjectName,
+      roomCode: req.body.subjectCode
+    })
+    if (req.body.role === 'teacher') {
+      const teacher = await Teacher.findOne({where: {userId: req.user.id}})
+      await teacher.addSubject(newSubject)
+      const updatedSubjects = await teacher.getSubjects()
+      res.json(updatedSubjects)
+    }
+  } catch (error) {
+    next(error)
+  }
+})

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {setSubject} from '../store/user'
+import {addSubject} from '../store/subject'
 
 export class AddRoom extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export class AddRoom extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    this.props.addRoom(this.state)
+    this.props.addRoomAction({...this.state, role: this.props.user.role})
     this.setState({
       subjectName: '',
       subjectCode: ''
@@ -39,14 +39,14 @@ export class AddRoom extends Component {
             type="text"
             name="subjectName"
             onChange={this.handleChange}
-            vlaue={this.state.subjectName}
+            value={this.state.subjectName}
             placeholder="Subject Name"
           />
           <input
             type="text"
             name="subjectCode"
             onChange={this.handleChange}
-            vlaue={this.state.subjectCode}
+            value={this.state.subjectCode}
             placeholder="Subject Code"
           />
           {/* <h3>Student Roster</h3> */}
@@ -69,13 +69,14 @@ export class AddRoom extends Component {
 
 const mapState = state => {
   return {
-    students: state.user.students
+    students: state.user.students,
+    user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    addRoom: obj => dispatch(setSubject(obj))
+    addRoomAction: obj => dispatch(addSubject(obj))
     // getRooms: () => dispatch(getSubjects())
   }
 }
