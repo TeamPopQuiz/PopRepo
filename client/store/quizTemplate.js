@@ -22,9 +22,10 @@ const getQuiz = (quiz, questions) => ({type: GET_QUIZ, quiz, questions})
 /**
  * THUNK CREATORS
  */
-export const getQuizData = () => async dispatch => {
+export const getQuizData = quizId => async dispatch => {
   try {
-    const res = await axios.get('/quizTemplate/:quizId')
+    const res = await axios.get(`/quizTemplates/:${quizId}`)
+    console.log(res)
     dispatch(getQuiz(res.data.quiz, res.data.questions))
   } catch (err) {
     console.error(err)
