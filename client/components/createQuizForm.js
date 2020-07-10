@@ -62,7 +62,6 @@ export class createQuizForm extends Component {
   }
   handleSubmittedQuiz() {
     event.preventDefault()
-    console.log('in handle submitted quiz')
     this.props.submitQuiz()
     this.setState({
       quizName: '',
@@ -78,8 +77,6 @@ export class createQuizForm extends Component {
 
   render() {
     const {quiz, questions} = this.props
-    console.log('this is the quiz from the store', quiz)
-    console.log('qs from store', questions)
     return !quiz.quizName ? (
       <div className="form">
         <h1>Create Quiz</h1>

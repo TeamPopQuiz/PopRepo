@@ -50,10 +50,8 @@ export const addedQuestion = qAndA => {
 }
 
 export const submittedQuiz = () => {
-  console.log('inside submittedQuiz thunk')
   return dispatch => {
     try {
-      console.log('inside dispatch')
       dispatch(submitQuiz())
     } catch (error) {
       console.error(error)
