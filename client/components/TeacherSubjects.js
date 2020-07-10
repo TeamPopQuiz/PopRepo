@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import AddRoom from './AddRoom'
 import {getSubjects} from '../store/subject'
+import {Link} from 'react-router-dom'
 
 class TeacherSubjects extends React.Component {
   componentDidMount() {
@@ -19,7 +20,9 @@ class TeacherSubjects extends React.Component {
             this.props.subjects.map(subject => {
               return (
                 <li key={subject.id}>
-                  {subject.name} {subject.roomCode}
+                  <Link to={`/subjects/${subject.id}`}>
+                    {subject.name} {subject.roomCode}
+                  </Link>
                 </li>
               )
             })
@@ -40,7 +43,7 @@ const mapDispatch = dispatch => {
 
 const mapState = state => {
   return {
-    subjects: state.subjects
+    subjects: state.subjects.subjects
   }
 }
 

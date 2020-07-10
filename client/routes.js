@@ -6,9 +6,10 @@ import {
   Login,
   Signup,
   UserHome,
+  TeacherHome,
+  CreateQuizForm,
   SingleSubject,
-  TeacherSubjects,
-  TeacherHome
+  TeacherSubjects
 } from './components'
 import {me} from './store'
 
@@ -33,7 +34,8 @@ class Routes extends Component {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route path="/home" component={TeacherHome} />
-              <Route path="/subject" component={SingleSubject} />
+              <Route path="/createQuiz" component={CreateQuizForm} />
+              <Route path="/subjects/:id" component={SingleSubject} />
               <Route path="/all-subjects" component={TeacherSubjects} />
             </Switch>
           ) : (
