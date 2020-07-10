@@ -5,7 +5,8 @@ const {
   Subject,
   User,
   TicketTemplate,
-  TicketQuestion
+  TicketQuestion,
+  StudentQuestion
 } = require('../db/models')
 module.exports = router
 
@@ -30,7 +31,14 @@ router.get('/quizTemplates/:quizId', async (req, res, next) => {
       where: {
         id: req.params.quizId
       },
-      include: [{model: Teacher}, {model: Subject}, {model: TicketQuestion}]
+      include: [
+        {model: Teacher},
+        {model: Subject},
+        {
+          model: TicketQuestion,
+          include: [{model: Student, through: 'students_ticketQuestions'}]
+        }
+      ]
     })
     res.json(quiz)
   } catch (err) {

@@ -10,14 +10,13 @@ const GET_QUIZ = 'GET_QUIZ'
  * INITIAL STATE
  */
 const defaultQuiz = {
-  quiz: '',
-  questions: []
+  quiz: ''
 }
 
 /**
  * ACTION CREATORS
  */
-const gotQuiz = (quiz, questions) => ({type: GET_QUIZ, quiz, questions})
+const gotQuiz = quiz => ({type: GET_QUIZ, quiz})
 
 /**
  * THUNK CREATORS
@@ -39,7 +38,7 @@ export const getQuizData = quizId => {
 export default function(state = defaultQuiz, action) {
   switch (action.type) {
     case GET_QUIZ:
-      return {...state, quiz: action.quiz, questions: action.questions}
+      return {...state, quiz: action.quiz}
     default:
       return state
   }
