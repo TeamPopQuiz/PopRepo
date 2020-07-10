@@ -76,18 +76,19 @@ async function seed() {
 
   // Creates an array of templates
   const templateArray = [
-    {quizName: 'Science Quiz', threshold: 90},
-    {quizName: 'Math Quiz', threshold: 85},
-    {quizName: 'English Quiz', threshold: 70},
-    {quizName: 'Study Hall Quiz', threshold: 100},
-    {quizName: 'Last Day of School Fun Quiz', threshold: 50}
+    {quizName: 'Science Quiz', threshold: 90, subjectId: 1},
+    {quizName: 'Math Quiz', threshold: 85, subjectId: 2},
+    {quizName: 'English Quiz', threshold: 70, subjectId: 4},
+    {quizName: 'Study Hall Quiz', threshold: 100, subjectId: 6},
+    {quizName: 'Last Day of School Fun Quiz', threshold: 50, subjectId: 6}
   ]
 
   const templates = await Promise.all(
     templateArray.map(template =>
       TicketTemplate.create({
         quizName: template.quizName,
-        threshold: template.threshold
+        threshold: template.threshold,
+        subjectId: template.subjectId
       })
     )
   )
@@ -168,12 +169,20 @@ async function seed() {
     }
   })
 
+  const [scienceQuiz, mathQuiz] = await TicketTemplate.findAll({
+    where: {
+      [Op.or]: [{id: 1}, {id: 2}]
+    }
+  })
+
   await julissa.addStudents([lauren, katie])
   await celine.addStudents([eda, jackie])
   await esther.addStudents([alison, raghdaa])
   await eda.addTicketQuestion(scienceQuestions[0])
   await eda.addSubject(subjects[0])
   await subjects[0].addStudentGrade(jackiesGrades[0])
+  await julissa.addTicketTemplate(mathQuiz)
+  await celine.addTicketTemplate(scienceQuiz)
 }
 
 console.log('Seeded successfully!')

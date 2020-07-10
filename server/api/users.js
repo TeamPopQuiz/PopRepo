@@ -1,5 +1,12 @@
 const router = require('express').Router()
-const {Teacher, Student, Subject, User} = require('../db/models')
+const {
+  Teacher,
+  Student,
+  Subject,
+  User,
+  TicketTemplate,
+  TicketQuestion
+} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {

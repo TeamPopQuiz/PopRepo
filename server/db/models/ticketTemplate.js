@@ -7,6 +7,9 @@ const TicketTemplate = db.define('ticketTemplate', {
     unique: true,
     allowNull: false
   },
+  date: {
+    type: Sequelize.DATEONLY
+  },
   threshold: {
     type: Sequelize.INTEGER
   }
