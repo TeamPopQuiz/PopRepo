@@ -6,7 +6,8 @@ router.post('/createQuiz', async (req, res, next) => {
   try {
     const quiz = await TicketTemplate.create({
       quizName: req.body.quizName,
-      threshold: req.body.threshold
+      threshold: req.body.threshold,
+      date: req.body.date
       //need to add teacherId and subjectId
     })
     res.json(quiz)
@@ -24,6 +25,7 @@ router.post('/addQuestion', async (req, res, next) => {
       wrongA2: req.body.wrongAnswer2,
       wrongA3: req.body.wrongAnswer3
     })
+    res.json(question)
     //need magic method to add tickettemplateId
   } catch (error) {
     console.error(error)

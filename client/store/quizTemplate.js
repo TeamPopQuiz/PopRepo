@@ -25,7 +25,6 @@ const getQuiz = (quiz, questions) => ({type: GET_QUIZ, quiz, questions})
 export const getQuizData = quizId => async dispatch => {
   try {
     const res = await axios.get(`/quizTemplates/:${quizId}`)
-    console.log(res)
     dispatch(getQuiz(res.data.quiz, res.data.questions))
   } catch (err) {
     console.error(err)
