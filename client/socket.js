@@ -1,6 +1,12 @@
 import io from 'socket.io-client'
 
-const socket = io(window.location.origin)
+let module = window
+
+// Wrap the require in check for window
+if (typeof window !== `undefined`) {
+  module = require('module')
+}
+const socket = io(module.location.origin)
 
 socket.on('connect', () => {
   console.log('Connected!')
