@@ -6,6 +6,7 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
+export {default as SingleSubject} from './SingleSubject'
+export {default as TeacherSubjects} from './TeacherSubjects'
 export {default as Dashboard} from './dashboard'
-export {QuizResults} from './quiz-results'
 export {default as TeacherHome} from './teacher-home'
