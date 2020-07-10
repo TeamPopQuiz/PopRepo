@@ -35,9 +35,9 @@ form div {
   padding: 20px;
   text-align: left;
   padding: 1em;
-  margin: 5em;
+  margin-right: 20em;
+  margin-top: 5em;
   border: 4px solid black;
-  height: 300px;
   width: 300px;
   float: right;
 }

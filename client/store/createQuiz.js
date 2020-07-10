@@ -30,7 +30,9 @@ export const submitQuiz = () => ({
 export const createdQuiz = quiz => {
   return async dispatch => {
     try {
+      console.log('inside thunk')
       const {data} = await axios.post('/api/quizzes/createQuiz', quiz)
+      console.log('after axios request')
       dispatch(createQuiz(data))
     } catch (error) {
       console.error(error)

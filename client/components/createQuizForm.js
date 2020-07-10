@@ -28,6 +28,7 @@ export class createQuizForm extends Component {
 
   handleSubmitQuiz(event) {
     event.preventDefault()
+    console.log('in handle submit quiz')
     let quiz = {
       quizName: this.state.quizName,
       date: this.state.date,
