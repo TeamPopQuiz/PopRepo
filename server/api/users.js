@@ -16,19 +16,3 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
-
-router.post('/add-subject-room', async (req, res, next) => {
-  try {
-    const [teacher, subject] = await Promise.all([
-      Teacher.findByPk(req.user.id),
-      Subject.create(req.body)
-    ])
-    await subject.setTeacher(teacher)
-    const newTeacher = await Teacher.findByPk(req.user.id, {
-      include: [{model: Student}, {model: Subject}]
-    })
-    res.json(newTeacher)
-  } catch (error) {
-    next(error)
-  }
-})
