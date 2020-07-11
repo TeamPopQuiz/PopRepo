@@ -12,7 +12,6 @@ class QuizResults extends Component {
 
   render() {
     const quiz = this.props.quiz
-    console.log(quiz)
     let teacher, teacherName, date, subject, threshold, questions
     if (quiz.teacher) {
       teacher = quiz.teacher

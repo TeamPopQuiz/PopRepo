@@ -38,9 +38,6 @@ class QuizQuestion extends Component {
     for (const key in allAnswers) {
       dataSet.push({x: key, y: allAnswers[key]})
     }
-    console.log(allAnswers)
-    console.log(dataSet)
-    console.log(correctStudents)
 
     return (
       <div>
