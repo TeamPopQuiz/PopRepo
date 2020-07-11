@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getStudents} from '../store/students'
@@ -15,7 +15,7 @@ class TeacherHome extends React.Component {
     const {students} = this.props
     return (
       <div>
-        <Link to="/classrooms">
+        <Link to="/all-subjects">
           <button type="button">VIEW CLASSROOMS</button>
         </Link>
         <Link to="/classrooms/create">

@@ -13,4 +13,9 @@ const Teacher = db.define('teacher', {
   }
 })
 
+// Teacher.prototype.getSubjects = async function() {
+//   const subjectsArr = await this.getSubjects()
+//   return subjectsArr
+// }
+
 module.exports = Teacher
