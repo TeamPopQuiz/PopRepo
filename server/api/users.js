@@ -24,24 +24,3 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
-
-router.get('/quizTemplates/:quizId', async (req, res, next) => {
-  try {
-    const quiz = await TicketTemplate.findAll({
-      where: {
-        id: req.params.quizId
-      },
-      include: [
-        {model: Teacher},
-        {model: Subject},
-        {
-          model: TicketQuestion,
-          include: [{model: Student, through: 'students_ticketQuestions'}]
-        }
-      ]
-    })
-    res.json(quiz)
-  } catch (err) {
-    next(err)
-  }
-})

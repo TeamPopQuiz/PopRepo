@@ -1,5 +1,11 @@
 const router = require('express').Router()
-const {Teacher, Student, Subject, User} = require('../db/models')
+const {
+  Teacher,
+  Student,
+  Subject,
+  User,
+  TicketTemplate
+} = require('../db/models')
 
 module.exports = router
 
@@ -24,7 +30,8 @@ router.get('/:id', async (req, res, next) => {
       const teacherSubject = await teacher.getSubjects({
         where: {
           id: req.params.id
-        }
+        },
+        include: [{model: TicketTemplate}]
       })
       res.json(teacherSubject)
     }

@@ -17,7 +17,7 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  //Creates an array of teachers
+  //Creates an array of users (teachers and students)
   const userArray = [
     {firstName: 'celine', lastName: 'chole', role: 'teacher'},
     {firstName: 'julissa', lastName: 'napolitano', role: 'teacher'},
@@ -50,7 +50,6 @@ async function seed() {
         lastName: user.lastName,
         role: user.role
       })
-      //newTOrS.createTeacherOrStudent(newTOrS.firstName, newTOrS.lastName, newTOrS.role)
     })
   )
 
@@ -93,6 +92,7 @@ async function seed() {
     )
   )
 
+  //Creates an array of questions
   const mathQuestions = await Promise.all([
     TicketQuestion.create({
       question: 'What is 1 + 2?',
@@ -110,7 +110,7 @@ async function seed() {
     })
   ])
 
-  const questionArray = [
+  const sQuestionArray = [
     {
       question: 'What is the third planet from the sun?',
       rightA: 'Earth',
@@ -185,8 +185,8 @@ async function seed() {
     }
   ]
 
-  const scienceQuestions = await Promise.all(
-    questionArray.map(async currQuestion => {
+  const sQuestionArrayCreate = await Promise.all(
+    sQuestionArray.map(async currQuestion => {
       const createdQuestion = await TicketQuestion.create({
         question: currQuestion.question,
         rightA: currQuestion.rightA,
@@ -210,12 +210,8 @@ async function seed() {
 
   await templates[1].addTicketQuestion(mathQuestions[0])
   await templates[1].addTicketQuestion(mathQuestions[1])
-  //await templates[0].addTicketQuestion(scienceQuestions[0])
-  //await templates[0].addTicketQuestion(scienceQuestions[1])
-  //await students[0].addStudentGrade(jackiesGrades[0])
-  // let jackieQuestionAnswer = await StudentQuestion.findAll()
-  // console.log(jackieQuestionAnswer)
 
+  //Assigns specific variables to teachers for relationship assignment
   const [julissa, celine, esther] = await Teacher.findAll({
     where: {
       [Op.or]: [
@@ -225,6 +221,8 @@ async function seed() {
       ]
     }
   })
+
+  //Assigns specific variables to students for relationship assignment
 
   const [jackie, lauren, eda, katie, raghdaa, alison] = await Student.findAll({
     where: {
@@ -239,18 +237,79 @@ async function seed() {
     }
   })
 
+  //Assigns specific variables to templates for relationshp assignment
   const [scienceQuiz, mathQuiz] = await TicketTemplate.findAll({
     where: {
       [Op.or]: [{id: 1}, {id: 2}]
     }
   })
 
+  //Assigns specific variables questions for relationship assignment
+  const [
+    scienceQ1,
+    scienceQ2,
+    scienceQ3,
+    scienceQ4,
+    scienceQ5,
+    scienceQ6,
+    scienceQ7,
+    scienceQ8,
+    scienceQ9,
+    scienceQ10
+  ] = await TicketQuestion.findAll({
+    where: {
+      [Op.or]: [
+        {question: 'What is the third planet from the sun?'},
+        {question: 'What is the chemical with the formula H2O?'},
+        {
+          question:
+            'Which noble gas is used to inflate balloons so that they float?'
+        },
+        {question: 'What kind of animal is a frog?'},
+        {question: 'How many planets are in our solar system?'},
+        {question: 'What force causes objects to fall?'},
+        {question: 'Who proposed the theory of relativity?'},
+        {question: 'Which organ pumps blood to the rest of the body?'},
+        {
+          question:
+            'What is the process by which plants convert light energy into chemical energy?'
+        },
+        {question: 'How many elements are in the periodic table?'}
+      ]
+    }
+  })
+
+  const scienceQuestions = [
+    scienceQ1,
+    scienceQ2,
+    scienceQ3,
+    scienceQ4,
+    scienceQ5,
+    scienceQ6,
+    scienceQ7,
+    scienceQ8,
+    scienceQ9,
+    scienceQ10
+  ]
+
+  //Adding students to teachers
   await julissa.addStudents([lauren, katie])
   await celine.addStudents([eda, jackie])
   await esther.addStudents([alison, raghdaa])
-  await eda.addTicketQuestion(scienceQuestions[0])
+
+  //Adding specific questions to students
+  scienceQuestions.forEach(async currQuestion => {
+    await eda.addTicketQuestion(currQuestion)
+    await jackie.addTicketQuestion(currQuestion)
+  })
+
+  //Adding specific subjects to students
   await eda.addSubject(subjects[0])
+
+  //Adding grades to specific subjects
   await subjects[0].addStudentGrade(jackiesGrades[0])
+
+  //Adding quizzes to teachers
   await julissa.addTicketTemplate(mathQuiz)
   await celine.addTicketTemplate(scienceQuiz)
 }

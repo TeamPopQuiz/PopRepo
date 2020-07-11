@@ -10,6 +10,7 @@ class SingleSubject extends Component {
 
   render() {
     const {subject} = this.props
+    const quizzes = subject.ticketTemplates
     return (
       <div>
         <h1>{subject.name}</h1>
@@ -17,6 +18,22 @@ class SingleSubject extends Component {
         <Link to="/createquiz">
           <button type="button">Create Quiz</button>
         </Link>
+        {quizzes ? (
+          <div>
+            <h2>Past Quizzes:</h2>
+            <h3>
+              {quizzes.map(currQuiz => (
+                <li key={currQuiz.id}>
+                  <Link to={`/quizzes/${currQuiz.id}`}>
+                    {currQuiz.quizName}
+                  </Link>
+                </li>
+              ))}
+            </h3>
+          </div>
+        ) : (
+          <h1>No past quizzes!</h1>
+        )}
       </div>
     )
   }

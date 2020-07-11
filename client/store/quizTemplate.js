@@ -4,16 +4,21 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_QUIZ = 'GET_QUIZ'
+const GET_QUIZ_QUESTION = 'GET_QUIZ_QUESTION'
 
 /**
  * INITIAL STATE
  */
-let initialState = {quiz: {}}
+let initialState = {quiz: {}, selectedQuestion: {}}
 
 /**
  * ACTION CREATORS
  */
 const gotQuiz = quiz => ({type: GET_QUIZ, quiz})
+const gotQuizQuestion = selectedQuestion => ({
+  type: GET_QUIZ_QUESTION,
+  selectedQuestion
+})
 
 /**
  * THUNK CREATORS
@@ -21,8 +26,19 @@ const gotQuiz = quiz => ({type: GET_QUIZ, quiz})
 export const getQuizData = quizId => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/users/quizTemplates/${quizId}`)
+      const {data} = await axios.get(`/api/quizzes/${quizId}`)
       dispatch(gotQuiz(data[0]))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
+export const getQuizQuestion = questionId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/quizzes/${quizId}/${questionId}`)
+      dispatch(gotQuizQuestion(data[0]))
     } catch (err) {
       console.error(err)
     }
@@ -36,6 +52,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GET_QUIZ:
       return {...state, quiz: action.quiz}
+    case GET_QUIZ_QUESTION:
+      return {...state, selectedQuestion: action.selectedQuestion}
     default:
       return state
   }

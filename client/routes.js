@@ -38,7 +38,7 @@ class Routes extends Component {
               <Route path="/createQuiz" component={CreateQuizForm} />
               <Route path="/subjects/:id" component={SingleSubject} />
               <Route path="/all-subjects" component={TeacherSubjects} />
-              <Route path="/quizTemplates/:quizId" component={QuizResults} />
+              <Route path="/quizzes/:quizId" component={QuizResults} />
             </Switch>
           ) : (
             <Route path="/home" component={UserHome} />
