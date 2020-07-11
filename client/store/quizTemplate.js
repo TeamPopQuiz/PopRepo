@@ -27,6 +27,7 @@ export const getQuizData = quizId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/quizzes/${quizId}`)
+      console.log('inside the thunk')
       dispatch(gotQuiz(data[0]))
     } catch (err) {
       console.error(err)
@@ -34,10 +35,12 @@ export const getQuizData = quizId => {
   }
 }
 
-export const getQuizQuestion = questionId => {
+export const getQuizQuestion = (questionId, quizId) => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/quizzes/${quizId}/${questionId}`)
+      const {data} = await axios.get(
+        `/api/quizzes/${quizId}/questions/${questionId}`
+      )
       dispatch(gotQuizQuestion(data[0]))
     } catch (err) {
       console.error(err)

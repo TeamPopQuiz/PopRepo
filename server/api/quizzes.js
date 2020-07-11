@@ -38,7 +38,7 @@ router.post('/addQuestion', async (req, res, next) => {
   }
 })
 
-router.get('/:quizId/:questionId', async (req, res, next) => {
+router.get('/:quizId/questions/:questionId', async (req, res, next) => {
   try {
     const quiz = await TicketQuestion.findAll({
       where: {
@@ -46,6 +46,7 @@ router.get('/:quizId/:questionId', async (req, res, next) => {
       },
       include: [{model: Student}]
     })
+    console.log('what is going on')
     res.json(quiz)
   } catch (err) {
     next(err)
