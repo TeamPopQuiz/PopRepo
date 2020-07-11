@@ -39,7 +39,6 @@ router.put('/', async (req, res, next) => {
       name: req.body.subjectName,
       roomCode: req.body.subjectCode
     })
-    console.log('new subject:', newSubject)
     if (req.body.role === 'teacher') {
       const teacher = await Teacher.findOne({where: {userId: req.user.id}})
       await teacher.addSubject(newSubject)

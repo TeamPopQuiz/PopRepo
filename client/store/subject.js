@@ -36,7 +36,6 @@ export const getSelectedSubject = id => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/subjects/${id}`)
-      console.log('data', data[0])
       dispatch(selectedSubject(data[0]))
     } catch (error) {
       console.error(error)

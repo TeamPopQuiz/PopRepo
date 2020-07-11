@@ -21,6 +21,10 @@ const TicketQuestion = db.define('ticketQuestion', {
   wrongA3: {
     type: Sequelize.TEXT,
     allowNull: false
+  },
+  QGiven: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

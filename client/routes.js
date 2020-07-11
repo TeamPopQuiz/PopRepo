@@ -9,7 +9,8 @@ import {
   TeacherHome,
   CreateQuizForm,
   SingleSubject,
-  TeacherSubjects
+  TeacherSubjects,
+  StudentQuizView
 } from './components'
 import {me} from './store'
 
@@ -37,9 +38,12 @@ class Routes extends Component {
               <Route path="/createQuiz" component={CreateQuizForm} />
               <Route path="/subjects/:id" component={SingleSubject} />
               <Route path="/all-subjects" component={TeacherSubjects} />
+              <Route path="/quiz" component={StudentQuizView} />
             </Switch>
           ) : (
-            <Route path="/home" component={UserHome} />
+            <Switch>
+              <Route path="/home" component={UserHome} />
+            </Switch>
           ))}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
