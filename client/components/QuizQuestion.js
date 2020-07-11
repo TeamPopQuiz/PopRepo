@@ -50,8 +50,8 @@ class QuizQuestion extends Component {
             <VictoryPie
               //height={200}
               origin={100}
-              height={100}
-              padding={10}
+              height={120}
+              padding={30}
               colorScale={['tomato', 'orange', 'gold']}
               data={dataSet}
             />

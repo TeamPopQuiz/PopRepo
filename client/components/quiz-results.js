@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {getQuizData} from '../store/quizTemplate'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import Popup from 'reactjs-popup'
 import {VictoryPie} from 'victory'
 
 class QuizResults extends Component {
@@ -36,7 +38,15 @@ class QuizResults extends Component {
             <h2>
               Questions:{' '}
               {questions.map(currQuest => (
-                <li key={currQuest.id}>{currQuest.question}</li>
+                <li key={currQuest.id}>
+                  <Link
+                    to={`/quizzes/${currQuest.ticketTemplateId}/questions/${
+                      currQuest.id
+                    }`}
+                  >
+                    {currQuest.question}
+                  </Link>
+                </li>
               ))}
             </h2>
           </div>

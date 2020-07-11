@@ -38,7 +38,10 @@ async function seed() {
     {firstName: 'venessa', lastName: 'campbell', role: 'student'},
     {firstName: 'chidi', lastName: 'okeke', role: 'student'},
     {firstName: 'mary', lastName: 'gordanier', role: 'student'},
-    {firstName: 'danielle', lastName: 'sisk', role: 'student'}
+    {firstName: 'danielle', lastName: 'sisk', role: 'student'},
+    {firstName: 'yang', lastName: 'gu', role: 'student'},
+    {firstName: 'sheli', lastName: 'levine', role: 'student'},
+    {firstName: 'irina', lastName: 'gabueva', role: 'student'}
   ]
 
   const users = await Promise.all(
@@ -224,7 +227,23 @@ async function seed() {
 
   //Assigns specific variables to students for relationship assignment
 
-  const [jackie, lauren, eda, katie, raghdaa, alison] = await Student.findAll({
+  const [
+    jackie,
+    lauren,
+    eda,
+    katie,
+    raghdaa,
+    alison,
+    alesin,
+    kate,
+    venessa,
+    chidi,
+    mary,
+    danielle,
+    yang,
+    sheli,
+    irina
+  ] = await Student.findAll({
     where: {
       [Op.or]: [
         {firstName: 'jackie'},
@@ -232,7 +251,16 @@ async function seed() {
         {firstName: 'eda'},
         {firstName: 'katie'},
         {firstName: 'raghdaa'},
-        {firstName: 'alison'}
+        {firstName: 'alison'},
+        {firstName: 'alesin'},
+        {firstName: 'kate'},
+        {firstName: 'venessa'},
+        {firstName: 'chidi'},
+        {firstName: 'mary'},
+        {firstName: 'danielle'},
+        {firstName: 'yang'},
+        {firstName: 'sheli'},
+        {firstName: 'irina'}
       ]
     }
   })
@@ -293,14 +321,17 @@ async function seed() {
   ]
 
   //Adding students to teachers
-  await julissa.addStudents([lauren, katie])
-  await celine.addStudents([eda, jackie])
-  await esther.addStudents([alison, raghdaa])
+  await julissa.addStudents([lauren, katie, chidi, sheli, danielle])
+  await celine.addStudents([eda, jackie, venessa, irina, alesin])
+  await esther.addStudents([alison, raghdaa, yang, mary, kate])
 
   //Adding specific questions to students
   scienceQuestions.forEach(async currQuestion => {
     await eda.addTicketQuestion(currQuestion)
     await jackie.addTicketQuestion(currQuestion)
+    await venessa.addTicketQuestion(currQuestion)
+    await irina.addTicketQuestion(currQuestion)
+    await alesin.addTicketQuestion(currQuestion)
   })
 
   //Adding specific subjects to students
