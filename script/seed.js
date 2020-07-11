@@ -110,23 +110,93 @@ async function seed() {
     })
   ])
 
-  const scienceQuestions = await Promise.all([
-    TicketQuestion.create({
+  const questionArray = [
+    {
       question: 'What is the third planet from the sun?',
       rightA: 'Earth',
       wrongA1: 'Mars',
       wrongA2: 'Jupiter',
       wrongA3: 'Saturn'
-    }),
-    TicketQuestion.create({
+    },
+    {
       question: 'What is the chemical with the formula H2O?',
       rightA: 'Water',
       wrongA1: 'Coke Zero',
       wrongA2: 'Gasoline',
-      wrongA3: 'Hydrogen Peroxide'
-    })
-  ])
+      wrongA3: 'Coffee'
+    },
+    {
+      question:
+        'Which noble gas is used to inflate balloons so that they float?',
+      rightA: 'Helium',
+      wrongA1: 'Krypton',
+      wrongA2: 'Oxygen',
+      wrongA3: 'Carbon Dioxide'
+    },
+    {
+      question: 'What kind of animal is a frog?',
+      rightA: 'Amphibian',
+      wrongA1: 'Mammal',
+      wrongA2: 'Reptile',
+      wrongA3: 'Scale monster'
+    },
+    {
+      question: 'How many planets are in our solar system?',
+      rightA: '8',
+      wrongA1: '23',
+      wrongA2: '3',
+      wrongA3: '100'
+    },
+    {
+      question: 'What force causes objects to fall?',
+      rightA: 'Gravity',
+      wrongA1: 'The Force',
+      wrongA2: 'Energy Field',
+      wrongA3: 'Magic'
+    },
+    {
+      question: 'Who proposed the theory of relativity?',
+      rightA: 'Albert Einstein',
+      wrongA1: 'Marie Curie',
+      wrongA2: 'Isaac Newton',
+      wrongA3: 'Stephen Hawking'
+    },
+    {
+      question: 'Which organ pumps blood to the rest of the body?',
+      rightA: 'Heart',
+      wrongA1: 'Kidneys',
+      wrongA2: 'Brain',
+      wrongA3: 'Stomach'
+    },
+    {
+      question:
+        'What is the process by which plants convert light energy into chemical energy?',
+      rightA: 'Photosynthesis',
+      wrongA1: 'Cooking',
+      wrongA2: 'Tanning',
+      wrongA3: 'Light Baking'
+    },
+    {
+      question: 'How many elements are in the periodic table?',
+      rightA: '118',
+      wrongA1: '2000',
+      wrongA2: '25',
+      wrongA3: '100'
+    }
+  ]
 
+  const scienceQuestions = await Promise.all(
+    questionArray.map(async currQuestion => {
+      const createdQuestion = await TicketQuestion.create({
+        question: currQuestion.question,
+        rightA: currQuestion.rightA,
+        wrongA1: currQuestion.wrongA1,
+        wrongA2: currQuestion.wrongA2,
+        wrongA3: currQuestion.wrongA3
+      })
+      await templates[0].addTicketQuestion(createdQuestion)
+    })
+  )
   const jackiesGrades = await Promise.all([
     StudentGrade.create({
       quizName: 'Science Quiz',
@@ -140,8 +210,8 @@ async function seed() {
 
   await templates[1].addTicketQuestion(mathQuestions[0])
   await templates[1].addTicketQuestion(mathQuestions[1])
-  await templates[0].addTicketQuestion(scienceQuestions[0])
-  await templates[0].addTicketQuestion(scienceQuestions[1])
+  //await templates[0].addTicketQuestion(scienceQuestions[0])
+  //await templates[0].addTicketQuestion(scienceQuestions[1])
   //await students[0].addStudentGrade(jackiesGrades[0])
   // let jackieQuestionAnswer = await StudentQuestion.findAll()
   // console.log(jackieQuestionAnswer)

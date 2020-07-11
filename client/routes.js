@@ -9,7 +9,8 @@ import {
   TeacherHome,
   CreateQuizForm,
   SingleSubject,
-  TeacherSubjects
+  TeacherSubjects,
+  QuizResults
 } from './components'
 import {me} from './store'
 
@@ -37,6 +38,7 @@ class Routes extends Component {
               <Route path="/createQuiz" component={CreateQuizForm} />
               <Route path="/subjects/:id" component={SingleSubject} />
               <Route path="/all-subjects" component={TeacherSubjects} />
+              <Route path="/quizTemplates/:quizId" component={QuizResults} />
             </Switch>
           ) : (
             <Route path="/home" component={UserHome} />

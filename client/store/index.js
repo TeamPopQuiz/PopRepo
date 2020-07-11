@@ -6,8 +6,15 @@ import user from './user'
 import subjects from './subject'
 import students from './students'
 import createQuiz from './createQuiz'
+import quizTemplate from './quizTemplate'
 
-const reducer = combineReducers({user, students, subjects, createQuiz})
+const reducer = combineReducers({
+  user,
+  students,
+  subjects,
+  createQuiz,
+  quizTemplate
+})
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

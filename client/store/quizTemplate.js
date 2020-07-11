@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 
 /**
  * ACTION TYPES
@@ -9,9 +8,7 @@ const GET_QUIZ = 'GET_QUIZ'
 /**
  * INITIAL STATE
  */
-const defaultQuiz = {
-  quiz: ''
-}
+let initialState = {quiz: {}}
 
 /**
  * ACTION CREATORS
@@ -25,7 +22,7 @@ export const getQuizData = quizId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/users/quizTemplates/${quizId}`)
-      dispatch(gotQuiz(data))
+      dispatch(gotQuiz(data[0]))
     } catch (err) {
       console.error(err)
     }
@@ -35,7 +32,7 @@ export const getQuizData = quizId => {
 /**
  * REDUCER
  */
-export default function(state = defaultQuiz, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_QUIZ:
       return {...state, quiz: action.quiz}
