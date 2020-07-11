@@ -5,7 +5,8 @@ const {
   Subject,
   User,
   TicketTemplate,
-  TicketQuestion
+  TicketQuestion,
+  StudentQuestion
 } = require('../db/models')
 module.exports = router
 
