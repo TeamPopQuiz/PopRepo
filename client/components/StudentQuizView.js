@@ -4,11 +4,28 @@ import {updateQuiz} from '../store/activeQuiz'
 
 class StudentQuizView extends React.Component {
   render() {
+    let {question, rightA, wrongA1, wrongA2, wrongA3} = this.props.question
     return (
       <div>
         <h3>Question Details</h3>
         <ul>
-          <li>{this.props.question.question}</li>
+          <li>{question}</li>
+          <div>
+            <button type="button" value={rightA}>
+              {rightA}
+            </button>
+            <button type="button" value={wrongA1}>
+              {wrongA1}
+            </button>
+          </div>
+          <div>
+            <button type="button" value={wrongA2}>
+              {wrongA2}
+            </button>
+            <button type="button" value={wrongA3}>
+              {wrongA3}
+            </button>
+          </div>
         </ul>
       </div>
     )
