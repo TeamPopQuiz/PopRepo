@@ -10,7 +10,6 @@ class TeacherSubjects extends React.Component {
   }
 
   render() {
-    console.log('this.props.subjects', this.props.subjects)
     return (
       <div>
         <h1>My Subjects</h1>

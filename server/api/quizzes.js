@@ -45,11 +45,8 @@ router.post('/addQuestion', async (req, res, next) => {
 })
 
 router.delete('/deleteQuestion', async (req, res, next) => {
-  console.log('what is req.body', req.body)
   try {
-    console.log('req body id', req.body.id)
     const deleted = await TicketQuestion.destroy({where: {id: req.body.id}})
-    console.log('after destroy')
     res.json(deleted)
   } catch (error) {
     console.error(error)
@@ -64,7 +61,6 @@ router.get('/:quizId/questions/:questionId', async (req, res, next) => {
       },
       include: [{model: Student}]
     })
-    console.log('what is going on')
     res.json(quiz)
   } catch (err) {
     next(err)

@@ -58,12 +58,9 @@ export const addedQuestion = (qAndA, ttId) => {
 }
 
 export const deletedQuestion = id => {
-  console.log('inside deletedq thunk, questionId:', id)
   return async dispatch => {
     try {
-      console.log('before axios delete')
       await axios.delete('/api/quizzes/deleteQuestion', {data: {id}})
-      console.log('after axios delete')
       dispatch(deleteQuestion(id))
     } catch (error) {
       console.error(error)

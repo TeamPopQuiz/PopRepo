@@ -14,7 +14,6 @@ export const getSubjects = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/subjects')
-      console.log('data', data)
       dispatch(gotSubjects(data))
     } catch (error) {
       console.error(error)
