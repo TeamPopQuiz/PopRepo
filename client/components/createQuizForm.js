@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {createdQuiz, addedQuestion, submittedQuiz} from '../store/createQuiz'
+import {
+  createdQuiz,
+  addedQuestion,
+  submittedQuiz,
+  removedQuiz,
+  deletedQuestion
+} from '../store/createQuiz'
 
 export class createQuizForm extends Component {
   constructor() {
@@ -20,21 +26,34 @@ export class createQuizForm extends Component {
     this.handleInputChangeQuestions = this.handleInputChangeQuestions.bind(this)
     this.handleSubmitQuestions = this.handleSubmitQuestions.bind(this)
     this.handleSubmittedQuiz = this.handleSubmittedQuiz.bind(this)
+    // this.deletingQuestion = this.deletingQuestion.bind(this)
   }
 
+  componentDidMount() {
+    this.setState({
+      quizName: '',
+      date: '',
+      threshold: 80,
+      question: '',
+      rightA: '',
+      wrongA1: '',
+      wrongA2: '',
+      wrongA3: ''
+    })
+    this.props.removeQuiz()
+  }
   handleInputChangeQuiz(event) {
     this.setState({[event.target.name]: event.target.value})
   }
 
   handleSubmitQuiz(event) {
     event.preventDefault()
-    console.log('in handle submit quiz')
     let quiz = {
       quizName: this.state.quizName,
       date: this.state.date,
       threshold: this.state.threshold
     }
-    this.props.createQuiz(quiz)
+    this.props.createQuiz(quiz, this.props.subjectId)
   }
   handleInputChangeQuestions(event) {
     this.setState({[event.target.name]: event.target.value})
@@ -49,7 +68,7 @@ export class createQuizForm extends Component {
       wrongAnswer2: this.state.wrongA2,
       wrongAnswer3: this.state.wrongA3
     }
-    this.props.addQuestion(qAndA)
+    this.props.addQuestion(qAndA, this.props.quiz.id)
     this.setState({
       quizName: '',
       date: '',
@@ -75,6 +94,10 @@ export class createQuizForm extends Component {
       wrongA3: ''
     })
   }
+
+  // deletingQuestion(id) {
+  //   this.props.deleteQuestion(id)
+  // }
 
   render() {
     const {quiz, questions} = this.props
@@ -174,7 +197,15 @@ export class createQuizForm extends Component {
             <ul>
               {questions.map(qA => (
                 <div key={qA.id}>
-                  <li>{qA.question}</li>
+                  <li>
+                    {qA.question}
+                    <button
+                      type="button"
+                      onClick={() => this.props.deleteQuestion(qA.id)}
+                    >
+                      x
+                    </button>
+                  </li>
                   <ul>
                     <li>{qA.rightA}</li>
                     <li>{qA.wrongA1}</li>
@@ -195,15 +226,18 @@ export class createQuizForm extends Component {
 const mapStateToProps = state => {
   return {
     quiz: state.createQuiz.quiz,
-    questions: state.createQuiz.questions
+    questions: state.createQuiz.questions,
+    subjectId: state.subjects.selectedSubject.id
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    createQuiz: quiz => dispatch(createdQuiz(quiz)),
-    addQuestion: qAndA => dispatch(addedQuestion(qAndA)),
-    submitQuiz: () => dispatch(submittedQuiz())
+    createQuiz: (quiz, subjId) => dispatch(createdQuiz(quiz, subjId)),
+    addQuestion: (qAndA, ttId) => dispatch(addedQuestion(qAndA, ttId)),
+    submitQuiz: () => dispatch(submittedQuiz()),
+    removeQuiz: () => dispatch(removedQuiz()),
+    deleteQuestion: qId => dispatch(deletedQuestion(qId))
   }
 }
 
