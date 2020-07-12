@@ -1,19 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updateQuiz, getQuestion} from '../store/activeQuiz'
+import {updateQuiz} from '../store/activeQuiz'
 
 class StudentQuizView extends React.Component {
-  constructor() {
-    super()
-
-    this.launchQuiz = this.launchQuiz.bind(this)
-  }
-
-  launchQuiz() {
-    this.props.newQuestion(1)
-    // this.props.update()
-  }
-
   render() {
     return (
       <div>
@@ -21,9 +10,6 @@ class StudentQuizView extends React.Component {
         <ul>
           <li>{this.props.question.question}</li>
         </ul>
-        <button type="button" onClick={this.launchQuiz}>
-          Launch Quiz
-        </button>
       </div>
     )
   }
@@ -37,8 +23,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    update: () => dispatch(updateQuiz()),
-    newQuestion: id => dispatch(getQuestion(id))
+    update: () => dispatch(updateQuiz())
   }
 }
 

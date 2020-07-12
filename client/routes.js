@@ -38,11 +38,11 @@ class Routes extends Component {
               <Route path="/createQuiz" component={CreateQuizForm} />
               <Route path="/subjects/:id" component={SingleSubject} />
               <Route path="/all-subjects" component={TeacherSubjects} />
-              <Route path="/quiz" component={StudentQuizView} />
             </Switch>
           ) : (
             <Switch>
               <Route path="/home" component={UserHome} />
+              <Route path="/quiz" component={StudentQuizView} />
             </Switch>
           ))}
         {/* Displays our Login component as a fallback */}

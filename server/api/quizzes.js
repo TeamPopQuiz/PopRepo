@@ -45,7 +45,6 @@ router.put('/active-ticket-questions', async (req, res, next) => {
 })
 
 router.put('/finished-question', async (req, res, next) => {
-  console.log(req.body)
   try {
     await TicketQuestion.update({QGiven: true}, {where: {id: req.body.id}})
     res.sendStatus(204)

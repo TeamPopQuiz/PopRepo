@@ -1,23 +1,23 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getSelectedSubject} from '../store/subject'
-// import {updateQuiz} from '../store/activeQuiz'
+import {getQuestion} from '../store/activeQuiz'
 import {Link} from 'react-router-dom'
 
 class SingleSubject extends Component {
-  // constructor() {
-  //   super()
+  constructor() {
+    super()
 
-  //   this.launchQuiz = this.launchQuiz.bind(this)
-  // }
+    this.launchQuiz = this.launchQuiz.bind(this)
+  }
 
   componentDidMount() {
     this.props.fetchSelectedSubject(this.props.match.params.id)
   }
 
-  // launchQuiz() {
-  //   this.props.update()
-  // }
+  launchQuiz() {
+    this.props.newQuestion(1)
+  }
 
   render() {
     const {subject} = this.props
@@ -28,7 +28,9 @@ class SingleSubject extends Component {
         <Link to="/createquiz">
           <button type="button">Create Quiz</button>
         </Link>
-        {/* <button type="button" onClick={this.launchQuiz}>Launch Quiz</button> */}
+        <button type="button" onClick={this.launchQuiz}>
+          Launch Quiz
+        </button>
       </div>
     )
   }
@@ -36,8 +38,8 @@ class SingleSubject extends Component {
 
 const mapDispatch = dispatch => {
   return {
-    fetchSelectedSubject: id => dispatch(getSelectedSubject(id))
-    // update: () => dispatch(updateQuiz())
+    fetchSelectedSubject: id => dispatch(getSelectedSubject(id)),
+    newQuestion: quizId => dispatch(getQuestion(quizId))
   }
 }
 
