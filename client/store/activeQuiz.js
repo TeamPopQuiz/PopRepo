@@ -3,6 +3,7 @@ import socket from '../socket'
 
 const GET_QUESTION = 'GET_QUESTION'
 const UDPATE_QUIZ = 'UDPATE_QUIZ'
+const SUBMIT_QUIZ_ANSWER = 'SUBMIT_QUIZ_ANSWER'
 
 export const updatedQuiz = val => ({type: UDPATE_QUIZ, val})
 export const gotQuestion = question => ({type: GET_QUESTION, question})
@@ -22,6 +23,21 @@ export const getQuestion = ticketId => {
   }
 }
 
+export const submitAnswer = (studentId, questionId, answer) => {
+  return async () => {
+    try {
+      await axios.post('/api/quizzes/submit-answer', {
+        studentId,
+        questionId,
+        answer
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+//thunk not being used, may be able to remove at some point
 export const updateQuiz = () => {
   return dispatch => {
     setInterval(() => {
