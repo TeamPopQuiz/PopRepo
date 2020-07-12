@@ -62,27 +62,56 @@ async function seed() {
     user.createTeacherOrStudent()
   })
 
+  // //Creates an array of subjects
+  // const subjectArray = [
+  //   'Science',
+  //   'Math',
+  //   'Social Studies',
+  //   'English',
+  //   'Art',
+  //   'Study Hall',
+  // ]
+
+  // const subjects = await Promise.all(
+  //   subjectArray.map((subject) => Subject.create({name: subject}))
+  // )
+
   //Creates an array of subjects
   const subjectArray = [
-    'Science',
-    'Math',
-    'Social Studies',
-    'English',
-    'Art',
-    'Study Hall'
+    {subject: 'Science', teacherId: 1},
+    {subject: 'Math', teacherId: 2},
+    {subject: 'Social Studies', teacherId: 3},
+    {subject: 'English', teacherId: 4},
+    {subject: 'Art', teacherId: 1},
+    {subject: 'Study Hall', teacherId: 2}
   ]
 
   const subjects = await Promise.all(
-    subjectArray.map(subject => Subject.create({name: subject}))
+    subjectArray.map(subjectArr =>
+      Subject.create({
+        name: subjectArr.subject,
+        teacherId: subjectArr.teacherId
+      })
+    )
   )
 
   // Creates an array of templates
   const templateArray = [
-    {quizName: 'Science Quiz', threshold: 90, subjectId: 1},
-    {quizName: 'Math Quiz', threshold: 85, subjectId: 2},
-    {quizName: 'English Quiz', threshold: 70, subjectId: 4},
-    {quizName: 'Study Hall Quiz', threshold: 100, subjectId: 6},
-    {quizName: 'Last Day of School Fun Quiz', threshold: 50, subjectId: 6}
+    {quizName: 'Science Quiz', threshold: 90, subjectId: 1, date: '2020-06-20'},
+    {quizName: 'Math Quiz', threshold: 85, subjectId: 2, date: '2020-06-20'},
+    {quizName: 'English Quiz', threshold: 70, subjectId: 4, date: '2020-06-20'},
+    {
+      quizName: 'Study Hall Quiz',
+      threshold: 100,
+      subjectId: 6,
+      date: '2020-06-20'
+    },
+    {
+      quizName: 'Last Day of School Fun Quiz',
+      threshold: 50,
+      subjectId: 6,
+      date: '2020-06-20'
+    }
   ]
 
   const templates = await Promise.all(
@@ -90,7 +119,8 @@ async function seed() {
       TicketTemplate.create({
         quizName: template.quizName,
         threshold: template.threshold,
-        subjectId: template.subjectId
+        subjectId: template.subjectId,
+        date: template.date
       })
     )
   )
