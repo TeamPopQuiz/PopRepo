@@ -3,7 +3,8 @@ const {
   TicketTemplate,
   TicketQuestion,
   Teacher,
-  Subject
+  Subject,
+  Student
 } = require('../db/models')
 module.exports = router
 
@@ -52,5 +53,41 @@ router.delete('/deleteQuestion', async (req, res, next) => {
     res.json(deleted)
   } catch (error) {
     console.error(error)
+  }
+})
+
+router.get('/:quizId/questions/:questionId', async (req, res, next) => {
+  try {
+    const quiz = await TicketQuestion.findAll({
+      where: {
+        id: req.params.questionId
+      },
+      include: [{model: Student}]
+    })
+    console.log('what is going on')
+    res.json(quiz)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:quizId', async (req, res, next) => {
+  try {
+    const quiz = await TicketTemplate.findAll({
+      where: {
+        id: req.params.quizId
+      },
+      include: [
+        {model: Teacher},
+        {model: Subject},
+        {
+          model: TicketQuestion,
+          include: [{model: Student, through: 'students_ticketQuestions'}]
+        }
+      ]
+    })
+    res.json(quiz)
+  } catch (err) {
+    next(err)
   }
 })

@@ -7,6 +7,7 @@ import {
   removedQuiz,
   deletedQuestion
 } from '../store/createQuiz'
+import {Link} from 'react-router-dom'
 
 export class createQuizForm extends Component {
   constructor() {
@@ -215,7 +216,9 @@ export class createQuizForm extends Component {
                 </div>
               ))}
             </ul>
-            <button type="submit">Submit Quiz</button>
+            <Link to={`/subjects/${this.props.subjectId}`}>
+              <button type="submit">Submit Quiz</button>
+            </Link>
           </form>
         </div>
       </div>
