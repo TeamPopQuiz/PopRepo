@@ -10,8 +10,10 @@ import {
   CreateQuizForm,
   SingleSubject,
   TeacherSubjects,
+  StudentQuizView,
   QuizResults,
-  QuizQuestion
+  QuizQuestion,
+  LaunchQuiz
 } from './components'
 import {me} from './store'
 
@@ -44,9 +46,13 @@ class Routes extends Component {
                 path="/quizzes/:quizId/questions/:questionId"
                 component={QuizQuestion}
               />
+              <Route path="/start-quiz" component={LaunchQuiz} />
             </Switch>
           ) : (
-            <Route path="/home" component={UserHome} />
+            <Switch>
+              <Route path="/home" component={UserHome} />
+              <Route path="/quiz" component={StudentQuizView} />
+            </Switch>
           ))}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />

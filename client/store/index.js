@@ -6,6 +6,7 @@ import user from './user'
 import subjects from './subject'
 import students from './students'
 import createQuiz from './createQuiz'
+import activeQuiz from './activeQuiz'
 import quizTemplate from './quizTemplate'
 
 const reducer = combineReducers({
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   students,
   subjects,
   createQuiz,
+  activeQuiz,
   quizTemplate
 })
 

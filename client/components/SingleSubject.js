@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getSelectedSubject} from '../store/subject'
+// import {getQuestion} from '../store/activeQuiz'
 import {Link} from 'react-router-dom'
 
 class SingleSubject extends Component {
