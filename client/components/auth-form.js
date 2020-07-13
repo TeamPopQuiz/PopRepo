@@ -40,9 +40,9 @@ class AuthForm extends Component {
             </label>
             <select name="role" type="text" onChange={this.handleChange}>
               <option />
-              <option>teacher</option>
+              <option>Teacher</option>
               <option name="student" value="student">
-                student
+                Student
               </option>
             </select>
           </div>
