@@ -3,19 +3,22 @@ import socket from '../socket'
 
 const GET_QUESTION = 'GET_QUESTION'
 const UDPATE_QUIZ = 'UDPATE_QUIZ'
-const SUBMIT_QUIZ_ANSWER = 'SUBMIT_QUIZ_ANSWER'
 
 export const updatedQuiz = val => ({type: UDPATE_QUIZ, val})
 export const gotQuestion = question => ({type: GET_QUESTION, question})
 
 export const getQuestion = ticketId => {
-  return async dispatch => {
+  return async () => {
     try {
-      const {data} = await axios.put('/api/quizzes/active-ticket-questions', {
+      let {data} = await axios.put('/api/quizzes/active-ticket-questions', {
         ticketId
       })
-      // dispatch(gotQuestion(data))
-      await axios.put('/api/quizzes/finished-question', data)
+      if (!data) {
+        data = {}
+        data.noMoreQuestions = true
+      } else {
+        await axios.put('/api/quizzes/finished-question', data)
+      }
       socket.emit('new question', data)
     } catch (error) {
       console.error(error)

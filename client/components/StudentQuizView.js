@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateQuiz, submitAnswer} from '../store/activeQuiz'
+import {Link} from 'react-router-dom'
 
 class StudentQuizView extends React.Component {
   constructor() {
@@ -18,7 +19,14 @@ class StudentQuizView extends React.Component {
 
   render() {
     let {question, rightA, wrongA1, wrongA2, wrongA3} = this.props.question
-    return (
+    return this.props.question.noMoreQuestions ? (
+      <div>
+        <h2>Congrats! You finished your MindPop!</h2>
+        <Link to="/home">
+          <button type="button">Go To Home</button>
+        </Link>
+      </div>
+    ) : (
       <div>
         <h3>Question Details</h3>
         <ul>
