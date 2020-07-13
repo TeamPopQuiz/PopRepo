@@ -7,13 +7,15 @@ import subjects from './subject'
 import students from './students'
 import createQuiz from './createQuiz'
 import activeQuiz from './activeQuiz'
+import quizTemplate from './quizTemplate'
 
 const reducer = combineReducers({
   user,
   students,
   subjects,
   createQuiz,
-  activeQuiz
+  activeQuiz,
+  quizTemplate
 })
 
 const middleware = composeWithDevTools(
