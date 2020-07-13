@@ -12,7 +12,8 @@ import {
   TeacherSubjects,
   StudentQuizView,
   QuizResults,
-  QuizQuestion
+  QuizQuestion,
+  LaunchQuiz
 } from './components'
 import {me} from './store'
 
@@ -45,6 +46,7 @@ class Routes extends Component {
                 path="/quizzes/:quizId/questions/:questionId"
                 component={QuizQuestion}
               />
+              <Route path="/start-quiz" component={LaunchQuiz} />
             </Switch>
           ) : (
             <Switch>

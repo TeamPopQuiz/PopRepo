@@ -216,7 +216,7 @@ export class createQuizForm extends Component {
                 </div>
               ))}
             </ul>
-            <Link to={`/subjects/${this.props.subjectId}`}>
+            <Link to="/start-quiz">
               <button type="submit">Submit Quiz</button>
             </Link>
           </form>
