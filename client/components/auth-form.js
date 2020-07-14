@@ -62,7 +62,7 @@ class AuthForm extends Component {
               </option>
             </select>
           </div>
-          {this.state.role === 'student' ? (
+          {this.state.role === 'student' && name === 'signup' ? (
             <div>
               <label htmlFor="teacher">
                 <small>Teacher</small>
@@ -109,16 +109,24 @@ const mapDispatch = dispatch => {
     handleSubmit(evt) {
       evt.preventDefault()
       console.log('inside dispatch')
-      const formName = evt.target.name
-      const firstName = evt.target.firstname
-      const lastName = evt.target.lastname
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      const role = evt.target.role.value
-      const teacher = evt.target.teacher.value
-      dispatch(
-        auth(firstName, lastName, email, password, role, formName, teacher)
-      )
+      if (evt.target.name === 'signup') {
+        let signinObj = {}
+        signinObj.formName = evt.target.name
+        signinObj.firstName = evt.target.firstname.value
+        signinObj.lastName = evt.target.lastname.value
+        signinObj.email = evt.target.email.value
+        signinObj.password = evt.target.password.value
+        signinObj.role = evt.target.role.value
+        signinObj.teacherFirstName = evt.target.teacher.value
+        dispatch(auth(signinObj))
+      } else {
+        let loginObj = {}
+        loginObj.formName = evt.target.name
+        loginObj.email = evt.target.email.value
+        loginObj.password = evt.target.password.value
+        loginObj.role = evt.target.role.value
+        dispatch(auth(loginObj))
+      }
     }
   }
 }

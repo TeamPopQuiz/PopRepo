@@ -74,7 +74,7 @@ User.prototype.createTeacherOrStudent = async function() {
         firstName: this.teacherFirstName
       }
     })
-    await teacher.setStudent(this)
+    await thisStudent.setTeacher(teacher)
   }
 }
 
