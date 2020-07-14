@@ -1,12 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updateQuiz, submitAnswer} from '../store/activeQuiz'
+import {
+  updateQuiz,
+  submitAnswer,
+  resetActiveQuestion
+} from '../store/activeQuiz'
 import {Link} from 'react-router-dom'
 
 class StudentQuizView extends React.Component {
   constructor() {
     super()
     this.giveAnswer = this.giveAnswer.bind(this)
+    this.reset = this.reset.bind(this)
   }
 
   giveAnswer(e) {
@@ -17,18 +22,25 @@ class StudentQuizView extends React.Component {
     )
   }
 
+  reset() {
+    this.props.resetActiveQuizState()
+  }
+
   render() {
     let {question, rightA, wrongA1, wrongA2, wrongA3} = this.props.question
     return this.props.question.noMoreQuestions ? (
       <div>
         <h2>Congrats! You finished your MindPop!</h2>
         <Link to="/home">
-          <button type="button">Go To Home</button>
+          <button type="button" onClick={this.reset}>
+            Go To Home
+          </button>
         </Link>
       </div>
+    ) : !this.props.question.id ? (
+      <div>Please Wait, Quiz Will Start Soon</div>
     ) : (
       <div>
-        <h3>Question Details</h3>
         <ul>
           <li>{question}</li>
           <div>
@@ -64,7 +76,8 @@ const mapDispatch = dispatch => {
   return {
     update: () => dispatch(updateQuiz()),
     sendAnswer: (studentId, questionId, answer) =>
-      dispatch(submitAnswer(studentId, questionId, answer))
+      dispatch(submitAnswer(studentId, questionId, answer)),
+    resetActiveQuizState: () => dispatch(resetActiveQuestion())
   }
 }
 
