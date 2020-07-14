@@ -1,11 +1,31 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updateQuiz, submitAnswer} from '../store/activeQuiz'
+import {
+  updateQuiz,
+  submitAnswer,
+  resetActiveQuestion
+} from '../store/activeQuiz'
+import {Link} from 'react-router-dom'
 
 class StudentQuizView extends React.Component {
   constructor() {
     super()
+
+    this.state = {
+      questionAnswered: false,
+      studentAnswer: ''
+    }
+
     this.giveAnswer = this.giveAnswer.bind(this)
+    this.reset = this.reset.bind(this)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.question.id !== this.props.question.id) {
+      this.setState({
+        questionAnswered: false
+      })
+    }
   }
 
   giveAnswer(e) {
@@ -14,35 +34,88 @@ class StudentQuizView extends React.Component {
       this.props.question.id,
       e.target.value
     )
+    this.setState({
+      questionAnswered: true,
+      studentAnswer: e.target.value
+    })
+  }
+
+  reset() {
+    this.props.resetActiveQuizState()
   }
 
   render() {
     let {question, rightA, wrongA1, wrongA2, wrongA3} = this.props.question
-    return (
+    let answerArr = shuffle([rightA, wrongA1, wrongA2, wrongA3])
+    if (this.state.questionAnswered) {
+      return (
+        <div>
+          <h2>You answered {this.state.studentAnswer} </h2>
+        </div>
+      )
+    }
+    return this.props.question.noMoreQuestions ? (
       <div>
-        <h3>Question Details</h3>
+        <h2>Congrats! You finished your MindPop!</h2>
+        <Link to="/home">
+          <button type="button" onClick={this.reset}>
+            Go To Home
+          </button>
+        </Link>
+      </div>
+    ) : !this.props.question.id ? (
+      <div>Please Wait, Quiz Will Start Soon</div>
+    ) : (
+      <div>
         <ul>
           <li>{question}</li>
           <div>
-            <button type="button" value={rightA} onClick={this.giveAnswer}>
-              {rightA}
+            <button
+              type="button"
+              value={answerArr[0]}
+              onClick={this.giveAnswer}
+            >
+              {answerArr[0]}
             </button>
-            <button type="button" value={wrongA1} onClick={this.giveAnswer}>
-              {wrongA1}
+            <button
+              type="button"
+              value={answerArr[1]}
+              onClick={this.giveAnswer}
+            >
+              {answerArr[1]}
             </button>
           </div>
           <div>
-            <button type="button" value={wrongA2} onClick={this.giveAnswer}>
-              {wrongA2}
+            <button
+              type="button"
+              value={answerArr[2]}
+              onClick={this.giveAnswer}
+            >
+              {answerArr[2]}
             </button>
-            <button type="button" value={wrongA3} onClick={this.giveAnswer}>
-              {wrongA3}
+            <button
+              type="button"
+              value={answerArr[3]}
+              onClick={this.giveAnswer}
+            >
+              {answerArr[3]}
             </button>
           </div>
         </ul>
       </div>
     )
   }
+}
+
+function shuffle(a) {
+  var j, x, i
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1))
+    x = a[i]
+    a[i] = a[j]
+    a[j] = x
+  }
+  return a
 }
 
 const mapState = state => {
@@ -56,7 +129,8 @@ const mapDispatch = dispatch => {
   return {
     update: () => dispatch(updateQuiz()),
     sendAnswer: (studentId, questionId, answer) =>
-      dispatch(submitAnswer(studentId, questionId, answer))
+      dispatch(submitAnswer(studentId, questionId, answer)),
+    resetActiveQuizState: () => dispatch(resetActiveQuestion())
   }
 }
 
