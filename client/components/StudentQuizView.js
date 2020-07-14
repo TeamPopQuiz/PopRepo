@@ -28,6 +28,7 @@ class StudentQuizView extends React.Component {
 
   render() {
     let {question, rightA, wrongA1, wrongA2, wrongA3} = this.props.question
+    let answerArr = shuffle([rightA, wrongA1, wrongA2, wrongA3])
     return this.props.question.noMoreQuestions ? (
       <div>
         <h2>Congrats! You finished your MindPop!</h2>
@@ -44,25 +45,52 @@ class StudentQuizView extends React.Component {
         <ul>
           <li>{question}</li>
           <div>
-            <button type="button" value={rightA} onClick={this.giveAnswer}>
-              {rightA}
+            <button
+              type="button"
+              value={answerArr[0]}
+              onClick={this.giveAnswer}
+            >
+              {answerArr[0]}
             </button>
-            <button type="button" value={wrongA1} onClick={this.giveAnswer}>
-              {wrongA1}
+            <button
+              type="button"
+              value={answerArr[1]}
+              onClick={this.giveAnswer}
+            >
+              {answerArr[1]}
             </button>
           </div>
           <div>
-            <button type="button" value={wrongA2} onClick={this.giveAnswer}>
-              {wrongA2}
+            <button
+              type="button"
+              value={answerArr[2]}
+              onClick={this.giveAnswer}
+            >
+              {answerArr[2]}
             </button>
-            <button type="button" value={wrongA3} onClick={this.giveAnswer}>
-              {wrongA3}
+            <button
+              type="button"
+              value={answerArr[3]}
+              onClick={this.giveAnswer}
+            >
+              {answerArr[3]}
             </button>
           </div>
         </ul>
       </div>
     )
   }
+}
+
+function shuffle(a) {
+  var j, x, i
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1))
+    x = a[i]
+    a[i] = a[j]
+    a[j] = x
+  }
+  return a
 }
 
 const mapState = state => {
