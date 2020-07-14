@@ -18,6 +18,10 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  teacherFirstName: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
@@ -65,6 +69,12 @@ User.prototype.createTeacherOrStudent = async function() {
       lastName: this.lastName
     })
     await this.setStudent(thisStudent)
+    let teacher = await Teacher.findOne({
+      where: {
+        firstName: this.teacherFirstName
+      }
+    })
+    await teacher.setStudent(this)
   }
 }
 
