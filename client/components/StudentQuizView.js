@@ -10,8 +10,22 @@ import {Link} from 'react-router-dom'
 class StudentQuizView extends React.Component {
   constructor() {
     super()
+
+    this.state = {
+      buttonDisabled: false
+    }
+
     this.giveAnswer = this.giveAnswer.bind(this)
     this.reset = this.reset.bind(this)
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log(prevProps)
+    if (prevProps.question.id !== this.props.question.id) {
+      this.setState({
+        buttonDisabled: false
+      })
+    }
   }
 
   giveAnswer(e) {
@@ -20,6 +34,9 @@ class StudentQuizView extends React.Component {
       this.props.question.id,
       e.target.value
     )
+    this.setState({
+      buttonDisabled: true
+    })
   }
 
   reset() {
@@ -49,6 +66,7 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[0]}
               onClick={this.giveAnswer}
+              disabled={this.state.buttonDisabled}
             >
               {answerArr[0]}
             </button>
@@ -56,6 +74,7 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[1]}
               onClick={this.giveAnswer}
+              disabled={this.state.buttonDisabled}
             >
               {answerArr[1]}
             </button>
@@ -65,6 +84,7 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[2]}
               onClick={this.giveAnswer}
+              disabled={this.state.buttonDisabled}
             >
               {answerArr[2]}
             </button>
@@ -72,6 +92,7 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[3]}
               onClick={this.giveAnswer}
+              disabled={this.state.buttonDisabled}
             >
               {answerArr[3]}
             </button>
