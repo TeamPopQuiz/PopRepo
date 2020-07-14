@@ -12,7 +12,8 @@ class StudentQuizView extends React.Component {
     super()
 
     this.state = {
-      buttonDisabled: false
+      questionAnswered: false,
+      studentAnswer: ''
     }
 
     this.giveAnswer = this.giveAnswer.bind(this)
@@ -20,10 +21,9 @@ class StudentQuizView extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps)
     if (prevProps.question.id !== this.props.question.id) {
       this.setState({
-        buttonDisabled: false
+        questionAnswered: false
       })
     }
   }
@@ -35,7 +35,8 @@ class StudentQuizView extends React.Component {
       e.target.value
     )
     this.setState({
-      buttonDisabled: true
+      questionAnswered: true,
+      studentAnswer: e.target.value
     })
   }
 
@@ -46,6 +47,13 @@ class StudentQuizView extends React.Component {
   render() {
     let {question, rightA, wrongA1, wrongA2, wrongA3} = this.props.question
     let answerArr = shuffle([rightA, wrongA1, wrongA2, wrongA3])
+    if (this.state.questionAnswered) {
+      return (
+        <div>
+          <h2>You answered {this.state.studentAnswer} </h2>
+        </div>
+      )
+    }
     return this.props.question.noMoreQuestions ? (
       <div>
         <h2>Congrats! You finished your MindPop!</h2>
@@ -66,7 +74,6 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[0]}
               onClick={this.giveAnswer}
-              disabled={this.state.buttonDisabled}
             >
               {answerArr[0]}
             </button>
@@ -74,7 +81,6 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[1]}
               onClick={this.giveAnswer}
-              disabled={this.state.buttonDisabled}
             >
               {answerArr[1]}
             </button>
@@ -84,7 +90,6 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[2]}
               onClick={this.giveAnswer}
-              disabled={this.state.buttonDisabled}
             >
               {answerArr[2]}
             </button>
@@ -92,7 +97,6 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[3]}
               onClick={this.giveAnswer}
-              disabled={this.state.buttonDisabled}
             >
               {answerArr[3]}
             </button>
