@@ -13,6 +13,14 @@ export class LaunchQuiz extends React.Component {
 
   launchQuiz() {
     this.props.newQuestion(this.props.quizId)
+
+    const stopQuiz = setInterval(() => {
+      if (this.props.currQuestion.noMoreQuestions) {
+        clearInterval(stopQuiz)
+      } else {
+        this.props.newQuestion(this.props.quizId)
+      }
+    }, 10000)
   }
 
   reset() {
