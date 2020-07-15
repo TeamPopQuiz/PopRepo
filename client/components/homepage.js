@@ -9,9 +9,12 @@ export class Homepage extends Component {
       <Container className="teacherhome" fluid>
         <div>
           <h1>hello!</h1>
-          <p>
-            Mindpop is an education and interactive platform... ADD DESCRIPTION
-          </p>
+          <div className="home-description">
+            <p>
+              Mindpop is an education and interactive platform... ADD
+              DESCRIPTION
+            </p>
+          </div>
           <Image
             fluid
             // height="300 px"

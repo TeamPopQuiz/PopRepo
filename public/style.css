@@ -12,9 +12,19 @@ label {
 
 .teacherhome {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-content: flex-start;
   text-align: center;
+}
+
+.teacherhome button {
+  height: 200px;
+  width: 200px;
+  font-size: 26px;
+  background-color: #e9c46a;
+  border-radius: 20px;
+  border-color: #e76f51;
+  color: white;
 }
 
 nav a {

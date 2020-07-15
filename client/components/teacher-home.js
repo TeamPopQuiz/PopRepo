@@ -15,19 +15,24 @@ class TeacherHome extends React.Component {
     const {students} = this.props
     return (
       <div className="teacherhome">
-        <Link to="/all-subjects">
-          <button type="button">VIEW CLASSROOMS</button>
-        </Link>
-        <Link to="/classrooms/create">
-          <button type="button">CREATE CLASSROOM</button>
-        </Link>
-        <Link to="/students">
-          <button type="button">EDIT STUDENTS</button>
-        </Link>
-        <Link to="/classrooms/data">
-          <button type="button">CLASS DATA</button>
-        </Link>
+        <div>
+          <Link to="/all-subjects">
+            <button type="button">VIEW CLASSROOMS</button>
+          </Link>
+          <Link to="/classrooms/create">
+            <button type="button">CREATE CLASSROOM</button>
+          </Link>
+        </div>
+        <div>
+          <Link to="/students">
+            <button type="button">EDIT STUDENTS</button>
+          </Link>
+          <Link to="/classrooms/data">
+            <button type="button">CLASS DATA</button>
+          </Link>
+        </div>
         <div className="roster">
+          <p>Student Roster</p>
           <ul>
             {students.length > 0 ? (
               students.map(student => {
