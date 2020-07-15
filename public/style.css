@@ -1,9 +1,14 @@
 body {
   font-family: 'Fredoka One', cursive;
+  color: #264653;
 }
 
 a {
   text-decoration: none;
+}
+.header {
+  color: rgb(38, 70, 83);
+  font-family: 'Fredoka One', cursive;
 }
 
 label {
@@ -15,6 +20,7 @@ label {
   justify-content: space-around;
   align-content: flex-start;
   text-align: center;
+  padding: 20px;
 }
 
 .teacherhome button {
@@ -25,6 +31,31 @@ label {
   border-radius: 20px;
   border-color: #e76f51;
   color: white;
+  margin: 1em;
+}
+
+.teacherSubject {
+  color: #264653;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.teacherSubject button {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 4em;
+  align-items: center;
+}
+.teacherSubject input {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 2em;
 }
 
 nav a {
@@ -86,6 +117,14 @@ form div {
   padding-bottom: 50px;
 }
 
+.roster {
+  color: #264653;
+  outline: 2px;
+  border-style: solid;
+  width: 300px;
+  margin-left: 100px;
+  margin-top: 50px;
+}
 .quiz-lists {
   display: flex;
   justify-content: center;

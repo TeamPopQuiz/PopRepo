@@ -6,31 +6,49 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, role}) => (
   <div className="navbar">
-    <h1>MindPop</h1>
+    <h1 className="header">MindPop</h1>
     <nav className="navbar">
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
           {role === 'teacher' ? (
             <div>
-              <Link to="/teacher-home">Home</Link>
-              <Link to="/all-subjects">Subjects</Link>
-              <Link to="/create">Create Classrooms</Link>
-              <Link onClick={handleClick}>Logout</Link>
+              <Link to="/teacher-home">
+                <button type="button">Home</button>
+              </Link>
+              <Link to="/all-subjects">
+                <button type="button">Subjects</button>
+              </Link>
+              <Link to="/create">
+                <button type="button">Create Classrooms</button>
+              </Link>
+              <Link onClick={handleClick}>
+                <button type="button">Logout</button>
+              </Link>
             </div>
           ) : (
             <div>
-              <Link to="/home">Home</Link>
-              <Link to="/quiz">Quiz</Link>
-              <Link onClick={handleClick}>Logout</Link>
+              <Link to="/home">
+                <button type="button">Home</button>
+              </Link>
+              <Link to="/quiz">
+                <button type="button">Quiz</button>
+              </Link>
+              <Link onClick={handleClick}>
+                <button type="button">Logout</button>
+              </Link>
             </div>
           )}
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/login">
+            <button type="button">Login</button>
+          </Link>
+          <Link to="/signup">
+            <button type="button">Sign Up</button>
+          </Link>
         </div>
       )}
     </nav>

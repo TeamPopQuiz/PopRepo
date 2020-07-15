@@ -37,8 +37,8 @@ export class AddRoom extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Add New Room</h2>
+      <div className="teacherSubject">
+        <h3>Add New Room</h3>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"

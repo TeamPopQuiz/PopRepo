@@ -2,6 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getStudents} from '../store/students'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
 
 class TeacherHome extends React.Component {
   componentDidMount() {
@@ -15,34 +17,40 @@ class TeacherHome extends React.Component {
     const {students} = this.props
     return (
       <div className="teacherhome">
-        <Link to="/all-subjects">
-          <button type="button">VIEW CLASSROOMS</button>
-        </Link>
-        <Link to="/classrooms/create">
-          <button type="button">CREATE CLASSROOM</button>
-        </Link>
-        <Link to="/students">
-          <button type="button">EDIT STUDENTS</button>
-        </Link>
-        <Link to="/classrooms/data">
-          <button type="button">CLASS DATA</button>
-        </Link>
-        <div className="roster">
-          <p>Student Roster</p>
-          <ul>
+        <Container>
+          <Row>
+            <Link to="/all-subjects">
+              <button type="button">VIEW CLASSROOMS</button>
+            </Link>
+            <Link to="/classrooms/create">
+              <button type="button">CREATE CLASSROOM</button>
+            </Link>
+          </Row>
+          <Row>
+            <Link to="/students">
+              <button type="button">EDIT STUDENTS</button>
+            </Link>
+            <Link to="/classrooms/data">
+              <button type="button">CLASS DATA</button>
+            </Link>
+          </Row>
+        </Container>
+        <Container>
+          <div className="roster">
+            <h3>Student Roster</h3>
             {students.length > 0 ? (
               students.map(student => {
                 return (
-                  <li key={student.id} className="student">
+                  <p key={student.id} className="student">
                     {student.firstName} {student.lastName}
-                  </li>
+                  </p>
                 )
               })
             ) : (
-              <li>No Students</li>
+              <h3>No Students</h3>
             )}
-          </ul>
-        </div>
+          </div>
+        </Container>
       </div>
     )
   }
