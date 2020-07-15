@@ -53,18 +53,23 @@ router.put('/link-to-quiz', async (req, res, next) => {
       where: {ticketCode: req.body.quizCode},
       include: [{model: TicketQuestion}]
     })
+
+    const subject = await Subject.findByPk(ticket.subjectId)
+
     const [studentGrade, student] = await Promise.all([
       StudentGrade.create({
         quizName: ticket.quizName,
         dateOfQuiz: ticket.date,
-        numOfQuestions: ticket.ticketQuestions.length
+        numOfQuestions: ticket.ticketQuestions.length,
+        quizSubject: subject.name
       }),
       Student.findByPk(req.body.studentId)
     ])
 
     await Promise.all([
       studentGrade.setStudent(student),
-      studentGrade.setTicketTemplate(ticket)
+      studentGrade.setTicketTemplate(ticket),
+      studentGrade.setSubject(subject)
     ])
 
     res.sendStatus(200)
@@ -101,17 +106,30 @@ router.post('/submit-answer', async (req, res, next) => {
       TicketQuestion.findByPk(req.body.questionId)
     ])
     await student.addTicketQuestion(question)
-    let association = await StudentQuestion.findOne({
-      where: {
-        studentId: req.body.studentId,
-        ticketQuestionId: req.body.questionId
-      }
-    })
+
+    let [association, studentGrade] = await Promise.all([
+      StudentQuestion.findOne({
+        where: {
+          studentId: req.body.studentId,
+          ticketQuestionId: req.body.questionId
+        }
+      }),
+      StudentGrade.findOne({
+        where: {
+          studentId: req.body.studentId,
+          ticketTemplateId: question.ticketTemplateId
+        }
+      })
+    ])
+
     if (req.body.answer === question.rightA) {
       association.correct = true
+      studentGrade.correctAnswers++
     } else {
       association.correct = false
+      studentGrade.incorrectAnswers++
     }
+    await studentGrade.save()
     await association.save()
     res.sendStatus(200)
   } catch (error) {

@@ -19,12 +19,12 @@ const StudentGrade = db.define('studentGrade', {
     // allowNull: false
   },
   correctAnswers: {
-    type: Sequelize.INTEGER
-    // allowNull: false
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   },
   incorrectAnswers: {
-    type: Sequelize.INTEGER
-    // allowNull: false
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 })
 
