@@ -36,7 +36,9 @@ class QuizQuestion extends Component {
     }
     let dataSet = []
     for (const key in allAnswers) {
-      dataSet.push({x: key, y: allAnswers[key]})
+      if (allAnswers[key] !== 0) {
+        dataSet.push({x: key, y: allAnswers[key]})
+      }
     }
 
     return (
@@ -46,24 +48,27 @@ class QuizQuestion extends Component {
             <h1>{question.question}</h1>
             <VictoryPie
               //height={200}
-              origin={100}
-              height={120}
+              origin={80}
+              height={150}
               padding={30}
               colorScale={['tomato', 'orange', 'gold']}
               data={dataSet}
+              labels={({datum}) => `${datum.x}: ${datum.y}`}
             />
-            <h3 className="statsClass">
-              Correct:{' '}
-              {correctStudents.map(currStudent => <li>{currStudent}</li>)}
-            </h3>
-            <h3 className="statsClass">
-              Incorrect:{' '}
-              {incorrectStudents.map(currStudent => <li>{currStudent}</li>)}
-            </h3>
-            <h3 className="statsClass">
-              No Answer:{' '}
-              {noAnswerStudents.map(currStudent => <li>{currStudent}</li>)}
-            </h3>
+            <div className="quiz-lists">
+              <h2 className="statsClass">
+                Correct:{' '}
+                {correctStudents.map(currStudent => <li>{currStudent}</li>)}
+              </h2>
+              <h2 className="statsClass">
+                Incorrect:{' '}
+                {incorrectStudents.map(currStudent => <li>{currStudent}</li>)}
+              </h2>
+              <h2 className="statsClass">
+                No Answer:{' '}
+                {noAnswerStudents.map(currStudent => <li>{currStudent}</li>)}
+              </h2>
+            </div>
           </div>
         ) : (
           <h1>Undefined!</h1>

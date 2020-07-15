@@ -51,7 +51,7 @@ class Routes extends Component {
           ) : (
             <Switch>
               <Route path="/home" component={UserHome} />
-              <Route path="/quiz" component={StudentQuizView} />
+              <Route path="/quiz/:quizCode" component={StudentQuizView} />
             </Switch>
           ))}
         {/* Displays our Login component as a fallback */}

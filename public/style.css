@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Fredoka One', cursive;
 }
 
 a {
@@ -49,4 +49,29 @@ form div {
   right: 0%;
   padding: 12px 16px;
   transform: translate(0%, -50%);
+}
+
+.student-home {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-home.quiz-code {
+  display: flex;
+  padding-bottom: 50px;
+}
+
+.quiz-lists {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-grow: 3;
+  flex-basis: 0;
+}
+
+.quiz-lists.statsClass {
+  width: 100px;
+  height: 50px;
 }
