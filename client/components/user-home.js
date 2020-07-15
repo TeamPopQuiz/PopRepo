@@ -1,9 +1,8 @@
-import React, {useState, Component} from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import socket from '../socket'
-import {render} from 'enzyme'
-import {Link} from 'react-router-dom'
+import {linkQuiz} from '../store/activeQuiz'
+import history from '../history'
 
 /**
  * COMPONENT
@@ -26,9 +25,11 @@ export class UserHome extends Component {
 
   handleSubmitCode(event) {
     event.preventDefault()
-    let code = {
-      quizCode: this.state.quizCode
-    }
+    history.push(`/quiz/${this.state.quizCode}`)
+    this.props.linkToQuiz(this.state.quizCode, this.props.user.student.id)
+    this.setState({
+      quizCode: ''
+    })
   }
 
   render() {
@@ -48,9 +49,9 @@ export class UserHome extends Component {
                 value={this.state.quizCode}
               />
             </label>
-            <Link className="quiz-code" to={`/quiz/${this.state.quizCode}`}>
-              <button type="submit">Start Quiz!</button>
-            </Link>
+            <button className="quiz-code" type="submit">
+              Start Quiz!
+            </button>
           </form>
         </div>
       </div>
@@ -63,6 +64,7 @@ export class UserHome extends Component {
  */
 const mapStateToProps = state => {
   return {
+    user: state.user,
     email: state.user.email,
     role: state.user.role,
     quizCode: state.quizCode
@@ -71,7 +73,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    submitRoom: () => dispatch(submittedRoom())
+    linkToQuiz: (quizCode, studentId) => dispatch(linkQuiz(quizCode, studentId))
   }
 }
 

@@ -6,6 +6,7 @@ const initialState = {}
 const GET_QUESTION = 'GET_QUESTION'
 const UDPATE_QUIZ = 'UDPATE_QUIZ'
 const RESET = 'RESET'
+const LINK_QUIZ = 'LINK_QUIZ'
 
 export const updatedQuiz = val => ({type: UDPATE_QUIZ, val})
 export const gotQuestion = question => ({type: GET_QUESTION, question})
@@ -39,6 +40,16 @@ export const submitAnswer = (studentId, questionId, answer) => {
         questionId,
         answer
       })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export const linkQuiz = (quizCode, studentId) => {
+  return async () => {
+    try {
+      await axios.put('/api/quizzes/link-to-quiz', {quizCode, studentId})
     } catch (error) {
       console.error(error)
     }
