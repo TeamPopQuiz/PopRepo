@@ -57,10 +57,8 @@ class QuizQuestion extends Component {
             />
             <div className="quiz-lists">
               <h2 className="statsClass">
-                {' '}
-                {correctStudents.length} ? Correct:{' '}
-                {correctStudents.map(currStudent => <li>{currStudent}</li>)} :{' '}
-                {null}
+                Correct:{' '}
+                {correctStudents.map(currStudent => <li>{currStudent}</li>)}
               </h2>
               <h2 className="statsClass">
                 Incorrect:{' '}

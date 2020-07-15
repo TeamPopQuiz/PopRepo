@@ -1,5 +1,6 @@
 import React from 'react'
 import {getQuestion, resetActiveQuestion} from '../store/activeQuiz'
+import {getQuizData} from '../store/quizTemplate'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
@@ -41,6 +42,10 @@ export class LaunchQuiz extends React.Component {
     ) : (
       <div>
         <h1>{this.props.quizDetails.quizName} MindPop Currently In Progress</h1>
+        <h2>{this.props.quizDetails.quizName} </h2>
+        <h2>
+          Give your students this code: {this.props.quizDetails.ticketCode}{' '}
+        </h2>
         <h3>Current Question</h3>
         <h4>{this.props.currQuestion.question}</h4>
         <button type="button" onClick={this.launchQuiz}>
