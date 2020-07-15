@@ -5,7 +5,8 @@ const {
   StudentQuestion,
   Teacher,
   Subject,
-  Student
+  Student,
+  StudentGrade
 } = require('../db/models')
 module.exports = router
 
@@ -42,6 +43,33 @@ router.post('/addQuestion', async (req, res, next) => {
     res.json(question)
   } catch (error) {
     console.error(error)
+  }
+})
+
+//link student to quiz based on quiz code
+router.put('/link-to-quiz', async (req, res, next) => {
+  try {
+    const ticket = await TicketTemplate.findOne({
+      where: {ticketCode: req.body.quizCode},
+      include: [{model: TicketQuestion}]
+    })
+    const [studentGrade, student] = await Promise.all([
+      StudentGrade.create({
+        quizName: ticket.quizName,
+        dateOfQuiz: ticket.date,
+        numOfQuestions: ticket.ticketQuestions.length
+      }),
+      Student.findByPk(req.body.studentId)
+    ])
+
+    await Promise.all([
+      studentGrade.setStudent(student),
+      studentGrade.setTicketTemplate(ticket)
+    ])
+
+    res.sendStatus(200)
+  } catch (error) {
+    next(error)
   }
 })
 
