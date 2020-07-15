@@ -5,15 +5,18 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, role}) => (
-  <div>
-    <h1>MindPop!</h1>
-    <nav>
+  <div className="navbar">
+    <h1>MindPop</h1>
+    <nav className="navbar">
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           {role === 'teacher' ? (
-            <Link to="/all-subjects">Subjects</Link>
+            <div>
+              <Link to="/all-subjects">Subjects</Link>
+              <Link to="/create">Create Classrooms</Link>
+            </div>
           ) : (
             <Link to="/quiz">Quiz</Link>
           )}

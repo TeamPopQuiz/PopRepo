@@ -14,7 +14,7 @@ class TeacherHome extends React.Component {
   render() {
     const {students} = this.props
     return (
-      <div>
+      <div className="teacherhome">
         <Link to="/all-subjects">
           <button type="button">VIEW CLASSROOMS</button>
         </Link>
