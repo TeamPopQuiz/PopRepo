@@ -5,7 +5,8 @@ const {
   StudentQuestion,
   Teacher,
   Subject,
-  Student
+  Student,
+  StudentGrade
 } = require('../db/models')
 module.exports = router
 
@@ -123,6 +124,7 @@ router.get('/:quizId', async (req, res, next) => {
       include: [
         {model: Teacher},
         {model: Subject},
+        {model: StudentGrade},
         {
           model: TicketQuestion,
           include: [{model: Student, through: 'students_ticketQuestions'}]

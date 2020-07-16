@@ -43,6 +43,7 @@ Subject.belongsToMany(Student, {through: 'subject_student'})
 
 //TicketTemplate relationships
 TicketTemplate.hasMany(TicketQuestion)
+TicketTemplate.hasMany(StudentGrade)
 TicketTemplate.belongsTo(Teacher)
 TicketTemplate.belongsTo(Subject)
 
@@ -54,6 +55,7 @@ TicketQuestion.belongsTo(TicketTemplate)
 StudentGrade.belongsTo(Teacher)
 StudentGrade.belongsTo(Student)
 StudentGrade.belongsTo(Subject)
+StudentGrade.belongsTo(TicketTemplate)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
