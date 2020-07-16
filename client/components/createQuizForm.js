@@ -108,32 +108,38 @@ export class createQuizForm extends Component {
         <form onSubmit={this.handleSubmitQuiz}>
           <label>
             Quiz Name:
-            <input
-              type="text"
-              name="quizName"
-              onChange={this.handleInputChangeQuiz}
-              value={this.state.quizName}
-            />
+            <div>
+              <input
+                type="text"
+                name="quizName"
+                onChange={this.handleInputChangeQuiz}
+                value={this.state.quizName}
+              />
+            </div>
           </label>
           <label>
             Date:
-            <input
-              type="date"
-              name="date"
-              onChange={this.handleInputChangeQuiz}
-              value={this.state.date}
-            />
+            <div>
+              <input
+                type="date"
+                name="date"
+                onChange={this.handleInputChangeQuiz}
+                value={this.state.date}
+              />
+            </div>
           </label>
           <label>
             Threshold:
-            <input
-              type="number"
-              min="1"
-              max="100"
-              name="threshold"
-              onChange={this.handleInputChangeQuiz}
-              value={this.state.threshold}
-            />
+            <div>
+              <input
+                type="number"
+                min="1"
+                max="100"
+                name="threshold"
+                onChange={this.handleInputChangeQuiz}
+                value={this.state.threshold}
+              />
+            </div>
           </label>
           <button type="submit">Create Quiz</button>
         </form>
