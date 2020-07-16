@@ -31,7 +31,6 @@ export class LaunchQuiz extends React.Component {
   }
 
   render() {
-    console.log(this.props.quizId)
     return this.props.currQuestion.noMoreQuestions ? (
       <div>
         <h2>Quiz Complete!</h2>
