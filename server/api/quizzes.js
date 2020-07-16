@@ -169,6 +169,7 @@ router.get('/:quizId', async (req, res, next) => {
       include: [
         {model: Teacher},
         {model: Subject},
+        {model: StudentGrade},
         {
           model: TicketQuestion,
           include: [{model: Student, through: 'students_ticketQuestions'}]

@@ -44,6 +44,7 @@ Subject.belongsToMany(Student, {through: 'subject_student'})
 //TicketTemplate relationships
 TicketTemplate.hasMany(StudentGrade)
 TicketTemplate.hasMany(TicketQuestion)
+TicketTemplate.hasMany(StudentGrade)
 TicketTemplate.belongsTo(Teacher)
 TicketTemplate.belongsTo(Subject)
 
