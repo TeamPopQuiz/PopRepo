@@ -25,7 +25,11 @@ const Footer = props => {
           <FaRegCopyright className="footerbackground" size={23} />
           <h10 className="footerbackground">Copyright 2020</h10>{' '}
           <a href="http://rb.gy/pf6wvq">
-            <GoMarkGithub color="black" size={32} />
+            <GoMarkGithub
+              color="black"
+              size={32}
+              className="footerbackground"
+            />
           </a>
         </span>
       </footer>

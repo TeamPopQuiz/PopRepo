@@ -19,6 +19,13 @@ label {
   display: block;
 }
 
+.home-image {
+  padding-top: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+}
+
 .authform {
   display: flex;
   text-align: center;
@@ -119,6 +126,11 @@ label {
   text-align: center;
 }
 
+.teacherSubject button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #teacherSubjectButton {
   display: flex;
   justify-content: center;
@@ -145,14 +157,20 @@ form div {
 }
 
 .form {
+  display: flex;
   padding: 20px;
   text-align: center;
+  flex-flow: column;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  border: 4px solid #2a9d8f;
   padding: 1em;
-  margin: 5em;
-  border: 4px solid black;
-  height: 300px;
-  width: 300px;
-  float: left;
+  border-radius: 0.5em;
+  color: #e76f51;
+  height: 400px;
+  width: 400px;
 }
 
 .formRight {
