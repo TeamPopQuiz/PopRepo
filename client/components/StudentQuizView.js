@@ -66,14 +66,15 @@ class StudentQuizView extends React.Component {
     ) : !this.props.question.id ? (
       <div>Please Wait, Quiz Will Start Soon</div>
     ) : (
-      <div>
-        <ul>
-          <li>{question}</li>
-          <div>
+      <div className="s-quiz-view-div">
+        <div className="quiz-question">{question}</div>
+        <div className="buttons-container">
+          <div className="button-row">
             <button
               type="button"
               value={answerArr[0]}
               onClick={this.giveAnswer}
+              className="answer-btn a1-btn"
             >
               {answerArr[0]}
             </button>
@@ -81,15 +82,17 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[1]}
               onClick={this.giveAnswer}
+              className="answer-btn a2-btn"
             >
               {answerArr[1]}
             </button>
           </div>
-          <div>
+          <div className="button-row">
             <button
               type="button"
               value={answerArr[2]}
               onClick={this.giveAnswer}
+              className="answer-btn a3-btn"
             >
               {answerArr[2]}
             </button>
@@ -97,11 +100,12 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[3]}
               onClick={this.giveAnswer}
+              className="answer-btn a4-btn"
             >
               {answerArr[3]}
             </button>
           </div>
-        </ul>
+        </div>
       </div>
     )
   }
