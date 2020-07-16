@@ -12,7 +12,7 @@ const Navbar = ({handleClick, isLoggedIn, role}) => (
         <div>
           {/* The navbar will show these links after you log in */}
           {role === 'teacher' ? (
-            <div>
+            <div className="navbarbackground">
               <Link to="/teacher-home">
                 <button type="button">HOME</button>
               </Link>
@@ -27,7 +27,7 @@ const Navbar = ({handleClick, isLoggedIn, role}) => (
               </Link>
             </div>
           ) : (
-            <div>
+            <div className="navbarbackground">
               <Link to="/home">
                 <button type="button">HOME</button>
               </Link>
@@ -41,7 +41,7 @@ const Navbar = ({handleClick, isLoggedIn, role}) => (
           )}
         </div>
       ) : (
-        <div>
+        <div className="navbarbackground">
           {/* The navbar will show these links before you log in */}
           <Link to="/login">
             <button type="button">LOGIN</button>

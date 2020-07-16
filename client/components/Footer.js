@@ -8,22 +8,22 @@ const Footer = props => {
   return (
     <div>
       <footer className="footer">
-        <span>
-          <p>About Us</p>
-          <p>Careers</p>
-          <p>Pricing</p>
+        <span className="footerbackground">
+          <p className="footerbackground">About Us</p>
+          <p className="footerbackground">Careers</p>
+          <p className="footerbackground">Pricing</p>
         </span>
         <span className="footer-description">
-          <h10>
+          <h10 className="footerbackground">
             An interactive educational platform where teachers can host pop
             quizzes for students, and receive detailed data on grades for the
             class, individual students, and rates of engagement.
           </h10>
         </span>
-        <span>
-          <h2>MindPop</h2>
-          <FaRegCopyright size={23} />
-          <h10>Copyright 2020</h10>{' '}
+        <span className="footerbackground">
+          <h2 className="footerbackground">MindPop</h2>
+          <FaRegCopyright className="footerbackground" size={23} />
+          <h10 className="footerbackground">Copyright 2020</h10>{' '}
           <a href="http://rb.gy/pf6wvq">
             <GoMarkGithub color="black" size={32} />
           </a>

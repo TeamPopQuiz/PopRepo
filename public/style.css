@@ -10,6 +10,7 @@ a {
   text-decoration: none;
 }
 .header {
+  background-color: #2a9d8f;
   color: rgb(38, 70, 83);
   font-family: 'Fredoka One', cursive;
 }
@@ -69,11 +70,16 @@ label {
   text-align: center;
   margin-left: 4em;
   margin-right: 4em;
+  background-color: #e9d66b;
   width: 600px;
+}
+.footerbackground {
+  background-color: #e9d66b;
 }
 
 .github {
   color: black;
+  background-color: inherit;
   letter-spacing: 3px;
   text-decoration: underline;
   text-align: center;
@@ -177,7 +183,9 @@ form div {
   background-color: #2a9d8f;
   padding-top: 2em;
 }
-
+.navbarbackground {
+  background-color: #2a9d8f;
+}
 .navbar button {
   display: flex;
   flex-flow: column;
