@@ -5,6 +5,9 @@ import {Link} from 'react-router-dom'
 import Popup from 'reactjs-popup'
 import {VictoryPie, VictoryChart, VictoryBar, VictoryGroup} from 'victory'
 import studentGrades from '../../script/studentGrades'
+import QuizResultsPie from './QuizResultsPie'
+import QuizQuestion from './QuizQuestion'
+import QuizQuestionBar from './QuizQuestionsBar'
 
 class QuizResults extends Component {
   componentDidMount() {
@@ -22,7 +25,9 @@ class QuizResults extends Component {
       questions,
       allGrades,
       percentPerfect,
-      allQuestionsTally
+      allQuestionsTally,
+      finalPieData,
+      scoreQuartiles
     if (quiz.teacher) {
       teacher = quiz.teacher
       teacherName = `${teacher.firstName} ${teacher.lastName}`
@@ -37,31 +42,60 @@ class QuizResults extends Component {
       questions = quiz.ticketQuestions
       console.log(questions[0].students[0].students_ticketQuestions.correct)
       allQuestionsTally = []
-      let correctObj = {x: 'Correct', y: 0},
-        incorrectObj = {x: 'Incorrect', y: 0},
-        noAnswerObj = {x: 'No Answer', y: 0}
-      questions.forEach(currQuestion => {
-        correctObj.y = 0
-        incorrectObj.y = 0
-        noAnswerObj.y = 0
+      let correctArr = [
+        {x: 'Q1', y: 0},
+        {x: 'Q2', y: 0},
+        {x: 'Q3', y: 0},
+        {x: 'Q4', y: 0},
+        {x: 'Q5', y: 0},
+        {x: 'Q6', y: 0},
+        {x: 'Q7', y: 0},
+        {x: 'Q8', y: 0},
+        {x: 'Q9', y: 0},
+        {x: 'Q10', y: 0}
+      ]
+      let incorrectArr = [
+        {x: 'Q1', y: 0},
+        {x: 'Q2', y: 0},
+        {x: 'Q3', y: 0},
+        {x: 'Q4', y: 0},
+        {x: 'Q5', y: 0},
+        {x: 'Q6', y: 0},
+        {x: 'Q7', y: 0},
+        {x: 'Q8', y: 0},
+        {x: 'Q9', y: 0},
+        {x: 'Q10', y: 0}
+      ]
+      let noAnswerArr = [
+        {x: 'Q1', y: 0},
+        {x: 'Q2', y: 0},
+        {x: 'Q3', y: 0},
+        {x: 'Q4', y: 0},
+        {x: 'Q5', y: 0},
+        {x: 'Q6', y: 0},
+        {x: 'Q7', y: 0},
+        {x: 'Q8', y: 0},
+        {x: 'Q9', y: 0},
+        {x: 'Q10', y: 0}
+      ]
+      questions.forEach(function(currQuestion, i) {
         currQuestion.students.forEach(currStudent => {
-          let currAnswer
-          if (!currStudent.students_ticketQuestions.correct) {
-            currAnswer = null
-          } else {
-            currAnswer = currStudent.students_ticketQuestions.correct
-          }
+          let currAnswer = currStudent.students_ticketQuestions.correct
+          // if (!currStudent.students_ticketQuestions.correct) {
+          //   currAnswer = null
+          // } else {
+          //   currAnswer = currStudent.students_ticketQuestions.correct
+          // }
           if (currAnswer === true) {
-            correctObj.y++
+            correctArr[i].y++
           } else if (currAnswer === false) {
-            incorrectObj.y++
-          } else if (currAnswer === null) {
-            noAnswerObj.y++
+            incorrectArr[i].y++
+          } else if (!currAnswer) {
+            noAnswerArr[i].y++
           }
         })
-        allQuestionsTally.push([correctObj, incorrectObj, noAnswerObj])
+        allQuestionsTally = [correctArr, incorrectArr, noAnswerArr]
       })
-      console.log(allQuestionsTally)
     }
     //This calculates whether or not the quiz threshold was met
     if (quiz.studentGrades) {
@@ -87,12 +121,12 @@ class QuizResults extends Component {
             <div>
               <h1>{quiz.quizName}</h1>
               {percentPerfect * 100 >= threshold ? (
-                <h3 style={{color: 'green'}}>
+                <h3 style={{color: '#2A9D8F'}}>
                   Threshold met! {percentPerfect * 100}% of your students
                   received a 100% on the quiz.
                 </h3>
               ) : (
-                <h3 style={{color: 'red'}}>
+                <h3 style={{color: '#E76F51'}}>
                   Threshold not met. {percentPerfect * 100}% of your students
                   received 100% on the quiz.
                 </h3>
@@ -104,7 +138,7 @@ class QuizResults extends Component {
               <h2>
                 Questions:{' '}
                 {questions.map(currQuest => (
-                  <li key={currQuest.id}>
+                  <li className="question-list" key={currQuest.id}>
                     <Link
                       to={`/quizzes/${currQuest.ticketTemplateId}/questions/${
                         currQuest.id
@@ -121,18 +155,17 @@ class QuizResults extends Component {
           )}
         </div>
         <div>
-          <VictoryPie />
-          <VictoryChart>
-            {allQuestionsTally ? (
-              allQuestionsTally.map(currQuestionTally => (
-                <VictoryGroup offset={30}>
-                  <VictoryBar data={currQuestionTally} />
-                </VictoryGroup>
-              ))
-            ) : (
-              <h1>'No data available!'</h1>
-            )}
-          </VictoryChart>
+          <QuizResultsPie
+            finalPieData={finalPieData}
+            quizName={quiz.quizName}
+            scoreQuartiles={scoreQuartiles}
+            allGrades={quiz.studentGrades}
+          />
+          {allQuestionsTally ? (
+            <QuizQuestionBar dataset={allQuestionsTally} />
+          ) : (
+            <h2>No question data available!</h2>
+          )}
         </div>
       </div>
     )

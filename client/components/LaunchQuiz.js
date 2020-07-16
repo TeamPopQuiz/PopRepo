@@ -3,6 +3,7 @@ import {getQuestion, resetActiveQuestion} from '../store/activeQuiz'
 import {getQuizData} from '../store/quizTemplate'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import history from '../history'
 
 export class LaunchQuiz extends React.Component {
   constructor() {
@@ -25,6 +26,7 @@ export class LaunchQuiz extends React.Component {
   }
 
   reset() {
+    history.push(`/quizzes/${this.props.quizId}`)
     this.props.resetActiveQuizState()
   }
 
@@ -34,11 +36,14 @@ export class LaunchQuiz extends React.Component {
       <div>
         <h2>Quiz Complete!</h2>
         <em>Here are your results</em>
-        <Link to={`api/quizzes/${this.props.quizId}`}>
+        <button type="button" onClick={this.reset}>
+          See Quiz Results
+        </button>
+        {/* <Link to={`api/quizzes/${this.props.quizId}`}>
           <button type="button" onClick={this.reset}>
             See Quiz Results
           </button>
-        </Link>
+        </Link> */}
       </div>
     ) : (
       <div>
