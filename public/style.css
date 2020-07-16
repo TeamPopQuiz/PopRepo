@@ -1,3 +1,6 @@
+* {
+  background-color: #fffaf0;
+}
 body {
   font-family: 'Fredoka One', cursive;
   color: #264653;
@@ -15,12 +18,79 @@ label {
   display: block;
 }
 
+.authform {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  outline-width: initial;
+  border: 4px solid;
+  width: 400px;
+  vertical-align: middle;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-color: #2a9d8f;
+  color: #f4a261;
+}
+
+.authForm input {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.authForm button {
+  color: #f4a261;
+}
+
+.footer {
+  display: flex;
+  flex-flow: column;
+  flex-direction: row;
+  background-color: #e9d66b;
+  height: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  text-indent: 1em;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.footer-description {
+  display: flex;
+  text-align: center;
+  margin-left: 4em;
+  margin-right: 4em;
+  width: 600px;
+}
+
+.github {
+  color: black;
+  letter-spacing: 3px;
+  text-decoration: underline;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .teacherhome {
   display: flex;
   justify-content: space-around;
-  align-content: flex-start;
+  align-content: center;
   text-align: center;
   padding: 20px;
+  align-items: center;
+  margin-right: 10em;
+  margin-left: 10em;
 }
 
 .teacherhome button {
@@ -43,10 +113,9 @@ label {
   text-align: center;
 }
 
-.teacherSubject button {
+#teacherSubjectButton {
   display: flex;
   justify-content: center;
-  flex-direction: column;
   text-align: center;
   margin-bottom: 4em;
   align-items: center;
@@ -55,6 +124,7 @@ label {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  text-align: center;
   margin-bottom: 2em;
 }
 
@@ -103,6 +173,18 @@ form div {
   display: flex;
   flex-flow: column;
   justify-content: left;
+  color: #f4a261;
+  background-color: #2a9d8f;
+  padding-top: 2em;
+}
+
+.navbar button {
+  display: flex;
+  flex-flow: column;
+  justify-content: left;
+  background-color: ivory;
+  border-color: #264653;
+  color: #264653;
 }
 
 .student-home {

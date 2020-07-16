@@ -11,7 +11,8 @@ const AuthForm = props => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={handleSubmit} name={name} className="authform">
+        <h3>{name === 'login' ? 'Log In' : 'Sign Up'}</h3>
         <div>
           <label htmlFor="email">
             <small>Email</small>
@@ -31,11 +32,11 @@ const AuthForm = props => {
           <input name="role" type="text" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit">{displayName.toUpperCase()}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
+        <a href="/auth/google">{displayName} with Google</a>
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
     </div>
   )
 }

@@ -55,7 +55,9 @@ export class AddRoom extends Component {
             placeholder="Subject Code"
           />
           {/* Will need to add component that allows teachers to assign students to room */}
-          <button type="submit">Create Room</button>
+          <button id="teacherSubjectButton" type="submit">
+            Create Room
+          </button>
         </form>
       </div>
     )

@@ -7,35 +7,35 @@ import {logout} from '../store'
 const Navbar = ({handleClick, isLoggedIn, role}) => (
   <div className="navbar">
     <h1 className="header">MindPop</h1>
-    <nav className="navbar">
+    <nav>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
           {role === 'teacher' ? (
             <div>
               <Link to="/teacher-home">
-                <button type="button">Home</button>
+                <button type="button">HOME</button>
               </Link>
               <Link to="/all-subjects">
-                <button type="button">Subjects</button>
+                <button type="button">SUBJECTS</button>
               </Link>
               <Link to="/create">
-                <button type="button">Create Classrooms</button>
+                <button type="button">CREATE CLASSROOMS</button>
               </Link>
               <Link onClick={handleClick}>
-                <button type="button">Logout</button>
+                <button type="button">LOGOUT</button>
               </Link>
             </div>
           ) : (
             <div>
               <Link to="/home">
-                <button type="button">Home</button>
+                <button type="button">HOME</button>
               </Link>
               <Link to="/quiz">
-                <button type="button">Quiz</button>
+                <button type="button">QUIZ</button>
               </Link>
               <Link onClick={handleClick}>
-                <button type="button">Logout</button>
+                <button type="button">LOGOUT</button>
               </Link>
             </div>
           )}
@@ -44,10 +44,10 @@ const Navbar = ({handleClick, isLoggedIn, role}) => (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">
-            <button type="button">Login</button>
+            <button type="button">LOGIN</button>
           </Link>
           <Link to="/signup">
-            <button type="button">Sign Up</button>
+            <button type="button">SIGNUP</button>
           </Link>
         </div>
       )}
