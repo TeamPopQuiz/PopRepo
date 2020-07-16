@@ -54,6 +54,7 @@ class QuizQuestion extends Component {
               colorScale={['tomato', 'orange', 'gold']}
               data={dataSet}
               labels={({datum}) => `${datum.x}: ${datum.y}`}
+              fixLabelOverlap={true}
             />
             <div className="quiz-lists">
               <h2 className="statsClass">

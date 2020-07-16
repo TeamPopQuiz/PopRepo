@@ -13,38 +13,18 @@ const {
 const StudentQuestion = require('../server/db/models/students_ticketQuestions')
 const {Sequelize, Op} = require('sequelize')
 
+//requiring all seed files
+const studentGrades = require('./studentGrades')
+const userArray = require('./userList')
+const subjectList = require('./subjectList')
+const quizTemplateList = require('./quizTemplateList')
+
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  //Creates an array of users (teachers and students)
-  const userArray = [
-    {firstName: 'celine', lastName: 'chole', role: 'teacher'},
-    {firstName: 'julissa', lastName: 'napolitano', role: 'teacher'},
-    {firstName: 'martha', lastName: 'betterton', role: 'teacher'},
-    {firstName: 'esther', lastName: 'kim', role: 'teacher'},
-    {firstName: 'jennifer', lastName: 'nugent', role: 'teacher'},
-    {firstName: 'emma', lastName: 'fox', role: 'teacher'},
-    {firstName: 'jasmin', lastName: 'soltani', role: 'teacher'},
-    {firstName: 'jackie', lastName: 'francis', role: 'student'},
-    {firstName: 'katie', lastName: 'escoto', role: 'student'},
-    {firstName: 'lauren', lastName: 'menzies', role: 'student'},
-    {firstName: 'eda', lastName: 'deniz', role: 'student'},
-    {firstName: 'karolina', lastName: 'porcioncula', role: 'student'},
-    {firstName: 'raghdaa', lastName: 'barmo', role: 'student'},
-    {firstName: 'alesin', lastName: 'tipler', role: 'student'},
-    {firstName: 'alison', lastName: 'hernandez', role: 'student'},
-    {firstName: 'kate', lastName: 'norton', role: 'student'},
-    {firstName: 'venessa', lastName: 'campbell', role: 'student'},
-    {firstName: 'chidi', lastName: 'okeke', role: 'student'},
-    {firstName: 'mary', lastName: 'gordanier', role: 'student'},
-    {firstName: 'danielle', lastName: 'sisk', role: 'student'},
-    {firstName: 'yang', lastName: 'gu', role: 'student'},
-    {firstName: 'sheli', lastName: 'levine', role: 'student'},
-    {firstName: 'irina', lastName: 'gabueva', role: 'student'}
-  ]
-
-  const users = await Promise.all(
+  //creating users from user list
+  await Promise.all(
     userArray.map(async user => {
       await User.create({
         email: `${user.firstName}@${user.role}.com`,
@@ -58,36 +38,14 @@ async function seed() {
 
   let userCreateArray = await User.findAll()
 
+  //creating teachers and/or students
   userCreateArray.forEach(user => {
     user.createTeacherOrStudent()
   })
 
-  // //Creates an array of subjects
-  // const subjectArray = [
-  //   'Science',
-  //   'Math',
-  //   'Social Studies',
-  //   'English',
-  //   'Art',
-  //   'Study Hall',
-  // ]
-
-  // const subjects = await Promise.all(
-  //   subjectArray.map((subject) => Subject.create({name: subject}))
-  // )
-
   //Creates an array of subjects
-  const subjectArray = [
-    {subject: 'Science', teacherId: 1},
-    {subject: 'Math', teacherId: 2},
-    {subject: 'Social Studies', teacherId: 3},
-    {subject: 'English', teacherId: 4},
-    {subject: 'Art', teacherId: 1},
-    {subject: 'Study Hall', teacherId: 2}
-  ]
-
   const subjects = await Promise.all(
-    subjectArray.map(subjectArr =>
+    subjectList.map(subjectArr =>
       Subject.create({
         name: subjectArr.subject,
         teacherId: subjectArr.teacherId
@@ -96,31 +54,14 @@ async function seed() {
   )
 
   // Creates an array of templates
-  const templateArray = [
-    {quizName: 'Science Quiz', threshold: 90, subjectId: 1, date: '2020-06-20'},
-    {quizName: 'Math Quiz', threshold: 85, subjectId: 2, date: '2020-06-20'},
-    {quizName: 'English Quiz', threshold: 70, subjectId: 4, date: '2020-06-20'},
-    {
-      quizName: 'Study Hall Quiz',
-      threshold: 100,
-      subjectId: 6,
-      date: '2020-06-20'
-    },
-    {
-      quizName: 'Last Day of School Fun Quiz',
-      threshold: 50,
-      subjectId: 6,
-      date: '2020-06-20'
-    }
-  ]
-
   const templates = await Promise.all(
-    templateArray.map(template =>
+    quizTemplateList.map(template =>
       TicketTemplate.create({
         quizName: template.quizName,
         threshold: template.threshold,
         subjectId: template.subjectId,
-        date: template.date
+        date: template.date,
+        teacherId: template.teacherId
       })
     )
   )
@@ -230,16 +171,23 @@ async function seed() {
       await templates[0].addTicketQuestion(createdQuestion)
     })
   )
-  const jackiesGrades = await Promise.all([
-    StudentGrade.create({
-      quizName: 'Science Quiz',
-      dateOfQuiz: '2020-07-06',
-      quizSubject: 'Science',
-      numOfQuestions: 10,
-      correctAnswers: 7,
-      incorrectAnswers: 2
+  //creates several grade records from importat studentGrades file
+  const grades = await Promise.all(
+    studentGrades.map(async currGradeRecord => {
+      await StudentGrade.create({
+        quizName: currGradeRecord.quizName,
+        dateOfQuiz: currGradeRecord.dateOfQuiz,
+        quizSubject: currGradeRecord.quizSubject,
+        numOfQuestions: currGradeRecord.numOfQuestions,
+        correctAnswers: currGradeRecord.correctAnswers,
+        incorrectAnswers: currGradeRecord.incorrectAnswers,
+        teacherId: currGradeRecord.teacherId,
+        studentId: currGradeRecord.studentId,
+        subjectId: currGradeRecord.subjectId,
+        ticketTemplateId: currGradeRecord.ticketTemplateId
+      })
     })
-  ])
+  )
 
   await templates[1].addTicketQuestion(mathQuestions[0])
   await templates[1].addTicketQuestion(mathQuestions[1])
@@ -303,7 +251,7 @@ async function seed() {
   })
 
   //Assigns specific variables questions for relationship assignment
-  const [
+  let [
     scienceQ1,
     scienceQ2,
     scienceQ3,
@@ -356,19 +304,21 @@ async function seed() {
   await esther.addStudents([alison, raghdaa, yang, mary, kate])
 
   //Adding specific questions to students
-  scienceQuestions.forEach(async currQuestion => {
-    await eda.addTicketQuestion(currQuestion)
-    await jackie.addTicketQuestion(currQuestion)
-    await venessa.addTicketQuestion(currQuestion)
-    await irina.addTicketQuestion(currQuestion)
-    await alesin.addTicketQuestion(currQuestion)
-  })
+  await Promise.all(
+    scienceQuestions.map(async currQuestion => {
+      await eda.addTicketQuestion(currQuestion)
+      await jackie.addTicketQuestion(currQuestion)
+      await venessa.addTicketQuestion(currQuestion)
+      await irina.addTicketQuestion(currQuestion)
+      await alesin.addTicketQuestion(currQuestion)
+    })
+  )
 
   //Adding specific subjects to students
   await eda.addSubject(subjects[0])
 
   //Adding grades to specific subjects
-  await subjects[0].addStudentGrade(jackiesGrades[0])
+  await subjects[0].addStudentGrade(grades[0])
 
   //Adding quizzes to teachers
   await julissa.addTicketTemplate(mathQuiz)
