@@ -1,5 +1,4 @@
 import React from 'react'
-import {Col} from 'react-bootstrap/Col'
 import {GoMarkGithub} from 'react-icons/go'
 import {FaRegCopyright} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
