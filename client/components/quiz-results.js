@@ -3,7 +3,7 @@ import {getQuizData} from '../store/quizTemplate'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Popup from 'reactjs-popup'
-import {VictoryChart, VictoryBar, VictoryGroup} from 'victory'
+import {VictoryPie, VictoryChart, VictoryBar, VictoryGroup} from 'victory'
 import studentGrades from '../../script/studentGrades'
 
 class QuizResults extends Component {
@@ -121,6 +121,7 @@ class QuizResults extends Component {
           )}
         </div>
         <div>
+          <VictoryPie />
           <VictoryChart>
             {allQuestionsTally ? (
               allQuestionsTally.map(currQuestionTally => (
