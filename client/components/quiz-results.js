@@ -16,7 +16,6 @@ class QuizResults extends Component {
 
   render() {
     const quiz = this.props.quiz
-    console.log(this.props.quiz)
     let teacher,
       teacherName,
       date,
@@ -40,7 +39,6 @@ class QuizResults extends Component {
 
     if (quiz.ticketQuestions) {
       questions = quiz.ticketQuestions
-      console.log(questions[0].students[0].students_ticketQuestions.correct)
       allQuestionsTally = []
       let correctArr = [
         {x: 'Q1', y: 0},
