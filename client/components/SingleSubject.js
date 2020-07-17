@@ -14,21 +14,25 @@ class SingleSubject extends Component {
     const quizzes = subject.ticketTemplates
     return (
       <div>
-        <h1>{subject.name}</h1>
-        <h3>Room code: {subject.roomCode}</h3>
-        <Link to="/createquiz">
-          <button type="button">Create Quiz</button>
-        </Link>
+        <div className="teacherSingle">
+          <h1>{subject.name}</h1>
+        </div>
+        <div className="teacherSingle">
+          <h3>Room code: {subject.roomCode}</h3>
+          <Link to="/createquiz">
+            <button type="button">Create Quiz</button>
+          </Link>
+        </div>
         {quizzes ? (
-          <div>
+          <div className="teacherSingle">
             <h2>Past Quizzes:</h2>
             <h3>
               {quizzes.map(currQuiz => (
-                <li key={currQuiz.id}>
+                <p key={currQuiz.id}>
                   <Link to={`/quizzes/${currQuiz.id}`}>
                     {currQuiz.quizName}
                   </Link>
-                </li>
+                </p>
               ))}
             </h3>
           </div>

@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container'
 export class Homepage extends Component {
   render() {
     return (
-      <Container className="home-image">
+      <Container className="home-image" id="maincontainer">
         <div>
           <Image
             fluid

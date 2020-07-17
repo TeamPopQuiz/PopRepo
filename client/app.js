@@ -6,7 +6,7 @@ const App = props => {
   return (
     <div>
       <Navbar />
-      <Routes />
+      <Routes id="maincontainer" />
       <Footer />
     </div>
   )
