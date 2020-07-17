@@ -18,30 +18,34 @@ export default class QuizQuestionBar extends React.Component {
 
   render() {
     const dataset = this.transformData(this.props.dataset)
+    const tickFormat = []
+    for (let i = 1; i < dataset[0].length + 1; i++) {
+      tickFormat.push(`Q${i}`)
+    }
+    console.log('This is rendering from QuizBar')
     return (
-      <div>
-        <VictoryChart height={400} width={400} domainPadding={{x: 30, y: 20}}>
-          <VictoryStack colorScale={['black', 'blue', 'tomato']}>
-            {dataset.map((data, i) => {
-              return <VictoryBar data={data} key={i} />
-            })}
-          </VictoryStack>
-          <VictoryAxis dependentAxis tickFormat={tick => `${tick}%`} />
-          <VictoryAxis
-            tickFormat={[
-              'Q1',
-              'Q2',
-              'Q3',
-              'Q4',
-              'Q5',
-              'Q6',
-              'Q7',
-              'Q8',
-              'Q9',
-              'Q10'
-            ]}
-          />
-        </VictoryChart>
+      <div className="question-bar">
+        <h2>
+          Correct answer percentage indicated by{' '}
+          <font style={{color: '#E76F51'}}>red </font> bars, incorrect answer
+          percentage indicated by{' '}
+          <font style={{color: '#F4A261'}}>orange </font>{' '}
+        </h2>
+        <div className="victory-bar">
+          <VictoryChart height={400} width={400} domainPadding={{x: 30, y: 20}}>
+            <VictoryStack
+              standalone={false}
+              colorScale={['#F4A261', '#E76F51', 'gray']}
+            >
+              {console.log('Rendering from inside victory component')}
+              {dataset.map((data, i) => {
+                return <VictoryBar data={data} key={i} />
+              })}
+            </VictoryStack>
+            <VictoryAxis dependentAxis tickFormat={tick => `${tick}%`} />
+            <VictoryAxis tickFormat={tickFormat} />
+          </VictoryChart>
+        </div>
       </div>
     )
   }

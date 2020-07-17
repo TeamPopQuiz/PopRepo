@@ -1,12 +1,27 @@
-* {
+/* * {
   background-color: #fffaf0;
+  position: relative;
+  z-index: 1;
+} */
+
+body {
+  font-family: 'Fredoka One', cursive;
+  color: #264653;
+}
+
+#maincontainer {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
 }
 
 a {
   text-decoration: none;
 }
 
-body {
+.header {
+  background-color: #2a9d8f;
+  color: rgb(38, 70, 83);
   font-family: 'Fredoka One', cursive;
   color: #264653;
 }
@@ -70,14 +85,17 @@ nav a {
   display: flex;
   flex-flow: column;
   flex-direction: row;
-  background-color: #e9d66b;
-  height: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  text-indent: 1em;
+  justify-content: center;
+  width: 100%;
+  padding-top: 20px;
+  background: #e9d66b;
+  font-size: 12px;
   text-align: center;
-  align-items: center;
-  justify-content: space-around;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  padding-bottom: 20px;
+  margin-top: 30px;
 }
 
 .footerbackground {
@@ -87,10 +105,103 @@ nav a {
 .footer-description {
   display: flex;
   text-align: center;
+  padding-left: 60px;
+  padding-top: 20px;
   margin-left: 4em;
   margin-right: 4em;
-  background-color: #e9d66b;
+  background: #e9d66b;
   width: 600px;
+}
+.footerbackground {
+  background-color: #e9d66b;
+}
+
+.github {
+  color: black;
+  background-color: inherit;
+  letter-spacing: 3px;
+  text-decoration: underline;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.teacherhome {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  text-align: center;
+  padding: 20px;
+  align-items: center;
+  margin-right: 10em;
+  margin-left: 10em;
+}
+
+.teacherhome button {
+  height: 200px;
+  width: 200px;
+  font-size: 26px;
+  background-color: #e9c46a;
+  border-radius: 20px;
+  border-color: #e76f51;
+  color: white;
+  margin: 1em;
+}
+
+.teacherSubject {
+  color: #264653;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.teacherSubject button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#teacherSubjectButton {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 4em;
+  align-items: center;
+}
+.teacherSubject input {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.teacherSingle {
+  color: #264653;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 3em;
+  padding-bottom: 2em;
+}
+
+.teacherSingle button {
+  background-color: #e76f51;
+  color: #264653;
+}
+
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+form div {
+  margin: 1em;
+  display: inline-block;
 }
 
 .form {
@@ -106,7 +217,7 @@ nav a {
   padding: 1em;
   border-radius: 0.5em;
   color: #e76f51;
-  height: 400px;
+  height: auto;
   width: 400px;
 }
 
@@ -250,4 +361,30 @@ nav a {
   flex-direction: column;
   text-align: center;
   margin-bottom: 2em;
+}
+
+.making-quiz {
+  display: flex;
+  flex-direction: wrap;
+}
+
+.quiz-results-victory {
+  height: 200;
+  width: 200;
+}
+
+.results-text {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  font-style: normal;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+.results-text p {
+  font-size: larger;
+}
+
+.results-text.results-header {
+  display: flex;
 }

@@ -197,7 +197,7 @@ export class createQuizForm extends Component {
             <button type="submit">Add Question</button>
           </form>
         </div>
-        <div className="formRight">
+        <div className="form">
           <form onSubmit={this.handleSubmittedQuiz}>
             <h4>{quiz.quizName}</h4>
             <h5>{quiz.date}</h5>

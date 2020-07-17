@@ -13,16 +13,16 @@ const Footer = props => {
           <p className="footerbackground">Pricing</p>
         </span>
         <span className="footer-description">
-          <h10 className="footerbackground">
+          <h6 className="footerbackground">
             An interactive educational platform where teachers can host pop
             quizzes for students, and receive detailed data on grades for the
             class, individual students, and rates of engagement.
-          </h10>
+          </h6>
         </span>
         <span className="footerbackground">
           <h2 className="footerbackground">MindPop</h2>
           <FaRegCopyright className="footerbackground" size={23} />
-          <h10 className="footerbackground">Copyright 2020</h10>{' '}
+          <h6 className="footerbackground">Copyright 2020</h6>{' '}
           <a href="http://rb.gy/pf6wvq">
             <GoMarkGithub
               color="black"
