@@ -21,7 +21,8 @@ class AuthForm extends Component {
     const {name, displayName, handleSubmit, error} = this.props
     return (
       <div>
-        <form onSubmit={handleSubmit} name={name}>
+        <form onSubmit={handleSubmit} name={name} className="authform">
+          <h3>{name === 'login' ? 'LOGIN' : 'SIGNUP'}</h3>
           {this.props.name === 'signup' ? (
             <div>
               <div>
@@ -65,17 +66,18 @@ class AuthForm extends Component {
           {this.state.role === 'student' && name === 'signup' ? (
             <div>
               <label htmlFor="teacher">
-                <small>Teacher</small>
-              </label>
-              <input name="teacher" type="text" />
+                <small>Teacher's Last Name</small>
+              </label>{' '}
+              <input name="teacher" type="text" placeholder="Mr./Ms" />
             </div>
           ) : null}
           <div>
-            <button type="submit">{displayName}</button>
+            <button type="submit">
+              {name === 'login' ? 'LOGIN' : 'SIGNUP'}
+            </button>
           </div>
           {error && error.response && <div> {error.response.data} </div>}
         </form>
-        <a href="/auth/google">{displayName} with Google</a>
       </div>
     )
   }
@@ -117,7 +119,7 @@ const mapDispatch = dispatch => {
         signinObj.email = evt.target.email.value
         signinObj.password = evt.target.password.value
         signinObj.role = evt.target.role.value
-        signinObj.teacherFirstName = evt.target.teacher.value
+        signinObj.teacherLastName = evt.target.teacher.value
         dispatch(auth(signinObj))
       } else {
         let loginObj = {}

@@ -18,7 +18,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  teacherFirstName: {
+  teacherLastName: {
     type: Sequelize.STRING,
     allowNull: true
   },
@@ -71,7 +71,7 @@ User.prototype.createTeacherOrStudent = async function() {
     await this.setStudent(thisStudent)
     let teacher = await Teacher.findOne({
       where: {
-        firstName: this.teacherFirstName
+        lastName: this.teacherLastName.toLowerCase()
       }
     })
     await thisStudent.setTeacher(teacher)
