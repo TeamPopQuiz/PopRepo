@@ -2,11 +2,7 @@ import React, {Component} from 'react'
 import {getQuizData} from '../store/quizTemplate'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import Popup from 'reactjs-popup'
-import {VictoryPie, VictoryChart, VictoryBar, VictoryGroup} from 'victory'
-import studentGrades from '../../script/studentGrades'
 import QuizResultsPie from './QuizResultsPie'
-import QuizQuestion from './QuizQuestion'
 import QuizQuestionBar from './QuizQuestionsBar'
 
 class QuizResults extends Component {
@@ -40,50 +36,19 @@ class QuizResults extends Component {
     if (quiz.ticketQuestions) {
       questions = quiz.ticketQuestions
       allQuestionsTally = []
-      let correctArr = [
-        {x: 'Q1', y: 0},
-        {x: 'Q2', y: 0},
-        {x: 'Q3', y: 0},
-        {x: 'Q4', y: 0},
-        {x: 'Q5', y: 0},
-        {x: 'Q6', y: 0},
-        {x: 'Q7', y: 0},
-        {x: 'Q8', y: 0},
-        {x: 'Q9', y: 0},
-        {x: 'Q10', y: 0}
-      ]
-      let incorrectArr = [
-        {x: 'Q1', y: 0},
-        {x: 'Q2', y: 0},
-        {x: 'Q3', y: 0},
-        {x: 'Q4', y: 0},
-        {x: 'Q5', y: 0},
-        {x: 'Q6', y: 0},
-        {x: 'Q7', y: 0},
-        {x: 'Q8', y: 0},
-        {x: 'Q9', y: 0},
-        {x: 'Q10', y: 0}
-      ]
-      let noAnswerArr = [
-        {x: 'Q1', y: 0},
-        {x: 'Q2', y: 0},
-        {x: 'Q3', y: 0},
-        {x: 'Q4', y: 0},
-        {x: 'Q5', y: 0},
-        {x: 'Q6', y: 0},
-        {x: 'Q7', y: 0},
-        {x: 'Q8', y: 0},
-        {x: 'Q9', y: 0},
-        {x: 'Q10', y: 0}
-      ]
+      let correctArr = []
+      let incorrectArr = []
+      let noAnswerArr = []
+
+      for (let i = 0; i < questions.length; i++) {
+        correctArr.push({x: `Q${i + 1}`, y: 0})
+        incorrectArr.push({x: `Q${i + 1}`, y: 0})
+        noAnswerArr.push({x: `Q${i + 1}`, y: 0})
+      }
+
       questions.forEach(function(currQuestion, i) {
         currQuestion.students.forEach(currStudent => {
           let currAnswer = currStudent.students_ticketQuestions.correct
-          // if (!currStudent.students_ticketQuestions.correct) {
-          //   currAnswer = null
-          // } else {
-          //   currAnswer = currStudent.students_ticketQuestions.correct
-          // }
           if (currAnswer === true) {
             correctArr[i].y++
           } else if (currAnswer === false) {
@@ -92,7 +57,7 @@ class QuizResults extends Component {
             noAnswerArr[i].y++
           }
         })
-        allQuestionsTally = [correctArr, incorrectArr, noAnswerArr]
+        allQuestionsTally = [incorrectArr, correctArr, noAnswerArr]
       })
     }
     //This calculates whether or not the quiz threshold was met
@@ -111,25 +76,26 @@ class QuizResults extends Component {
       )
       percentPerfect = allPerfectScores / allGrades.length
     }
-
+    const displayNum = Math.floor(percentPerfect * 100)
     return (
       <div>
-        <div>
+        <div className="results-text">
+          <h1 className="results-header">{quiz.quizName}</h1>
           {quiz.teacher && quiz.ticketQuestions ? (
             <div>
-              <h1>{quiz.quizName}</h1>
               {percentPerfect * 100 >= threshold ? (
                 <h3 style={{color: '#2A9D8F'}}>
-                  Threshold met! {percentPerfect * 100}% of your students
-                  received a 100% on the quiz.
+                  Threshold met! {displayNum}% of your students received a 100%
+                  on the quiz.
                 </h3>
               ) : (
                 <h3 style={{color: '#E76F51'}}>
-                  Threshold not met. {percentPerfect * 100}% of your students
-                  received 100% on the quiz.
+                  Threshold not met. {displayNum}% of your students received
+                  100% on the quiz.
                 </h3>
               )}
-              <h2>Teacher: {teacherName}</h2>
+              <h2>Teacher: </h2>
+              <p>{teacherName}</p>
               <h2>Date: {date}</h2>
               <h2>Threshold: {threshold}</h2>
               <h2>Subject: {subject}</h2>
@@ -152,7 +118,7 @@ class QuizResults extends Component {
             <h1>Undefined!</h1>
           )}
         </div>
-        <div>
+        <div className="quiz-results-victory">
           <QuizResultsPie
             finalPieData={finalPieData}
             quizName={quiz.quizName}

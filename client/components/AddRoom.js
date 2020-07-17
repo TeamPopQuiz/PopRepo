@@ -37,8 +37,8 @@ export class AddRoom extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Add New Room</h2>
+      <div className="teacherSubject">
+        <h3>Add New Room</h3>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -55,7 +55,9 @@ export class AddRoom extends Component {
             placeholder="Subject Code"
           />
           {/* Will need to add component that allows teachers to assign students to room */}
-          <button type="submit">Create Room</button>
+          <button id="teacherSubjectButton" type="submit">
+            Create Room
+          </button>
         </form>
       </div>
     )

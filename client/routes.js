@@ -13,7 +13,8 @@ import {
   StudentQuizView,
   QuizResults,
   QuizQuestion,
-  LaunchQuiz
+  LaunchQuiz,
+  Homepage
 } from './components'
 import {me} from './store'
 
@@ -31,13 +32,14 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {isLoggedIn &&
           (this.props.role === 'teacher' ? (
             <Switch>
               {/* Routes placed here are only available after logging in */}
-              <Route path="/home" component={TeacherHome} />
+              <Route path="/teacher-home" component={TeacherHome} />
               <Route path="/createQuiz" component={CreateQuizForm} />
               <Route path="/subjects/:id" component={SingleSubject} />
               <Route path="/all-subjects" component={TeacherSubjects} />
