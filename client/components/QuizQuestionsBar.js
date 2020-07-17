@@ -22,7 +22,6 @@ export default class QuizQuestionBar extends React.Component {
     for (let i = 1; i < dataset[0].length + 1; i++) {
       tickFormat.push(`Q${i}`)
     }
-    console.log('This is rendering from QuizBar')
     return (
       <div className="question-bar">
         <h2>
@@ -37,7 +36,6 @@ export default class QuizQuestionBar extends React.Component {
               standalone={false}
               colorScale={['#F4A261', '#E76F51', 'gray']}
             >
-              {console.log('Rendering from inside victory component')}
               {dataset.map((data, i) => {
                 return <VictoryBar data={data} key={i} />
               })}

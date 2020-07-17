@@ -31,9 +31,9 @@ const Navbar = ({handleClick, isLoggedIn, role}) => (
               <Link to="/home">
                 <button type="button">HOME</button>
               </Link>
-              <Link to="/quiz">
+              {/* <Link to="/quiz">
                 <button type="button">QUIZ</button>
-              </Link>
+              </Link> */}
               <Link onClick={handleClick}>
                 <button type="button">LOGOUT</button>
               </Link>
