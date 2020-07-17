@@ -78,10 +78,11 @@ label {
   background: #e9d66b;
   font-size: 12px;
   text-align: center;
-  position: absolute;
+  position: relative;
   bottom: 0;
   left: 0;
   padding-bottom: 20px;
+  margin-top: 300px;
 }
 
 .footer-description {
