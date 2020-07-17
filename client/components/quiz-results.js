@@ -57,7 +57,7 @@ class QuizResults extends Component {
             noAnswerArr[i].y++
           }
         })
-        allQuestionsTally = [correctArr, incorrectArr, noAnswerArr]
+        allQuestionsTally = [incorrectArr, correctArr, noAnswerArr]
       })
     }
     //This calculates whether or not the quiz threshold was met
@@ -76,25 +76,26 @@ class QuizResults extends Component {
       )
       percentPerfect = allPerfectScores / allGrades.length
     }
-
+    const displayNum = Math.floor(percentPerfect * 100)
     return (
       <div>
-        <div>
+        <div className="results-text">
+          <h1 className="results-header">{quiz.quizName}</h1>
           {quiz.teacher && quiz.ticketQuestions ? (
             <div>
-              <h1>{quiz.quizName}</h1>
               {percentPerfect * 100 >= threshold ? (
                 <h3 style={{color: '#2A9D8F'}}>
-                  Threshold met! {percentPerfect * 100}% of your students
-                  received a 100% on the quiz.
+                  Threshold met! {displayNum}% of your students received a 100%
+                  on the quiz.
                 </h3>
               ) : (
                 <h3 style={{color: '#E76F51'}}>
-                  Threshold not met. {percentPerfect * 100}% of your students
-                  received 100% on the quiz.
+                  Threshold not met. {displayNum}% of your students received
+                  100% on the quiz.
                 </h3>
               )}
-              <h2>Teacher: {teacherName}</h2>
+              <h2>Teacher: </h2>
+              <p>{teacherName}</p>
               <h2>Date: {date}</h2>
               <h2>Threshold: {threshold}</h2>
               <h2>Subject: {subject}</h2>
@@ -117,7 +118,7 @@ class QuizResults extends Component {
             <h1>Undefined!</h1>
           )}
         </div>
-        <div>
+        <div className="quiz-results-victory">
           <QuizResultsPie
             finalPieData={finalPieData}
             quizName={quiz.quizName}

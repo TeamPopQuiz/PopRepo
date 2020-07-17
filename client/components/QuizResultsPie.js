@@ -7,8 +7,8 @@ export default class QuizResultsPie extends React.Component {
     if (this.props.allGrades) {
       //allGrades = quiz.studentGrades
       scoreQuartiles = [
-        {x: 'Under 50%', y: 0},
-        {x: '50-75%', y: 0},
+        {x: '0-49%', y: 0},
+        {x: '50-74%', y: 0},
         {x: '75-99%', y: 0},
         {x: '100%', y: 0}
       ]
@@ -36,6 +36,7 @@ export default class QuizResultsPie extends React.Component {
     return (
       <div>
         <svg viewBox="0 0 300 300">
+          <h2 />
           <VictoryPie
             standalone={false}
             width={200}
@@ -43,6 +44,7 @@ export default class QuizResultsPie extends React.Component {
             data={finalPieData}
             innerRadius={25}
             labelRadius={30}
+            padding={{top: 25, bottom: 25}}
             labels={({datum}) => `${datum.x}: ${datum.y}`}
             style={{labels: {fontSize: 4, fill: 'white'}}}
             colorScale={['#264653', '#2A9D8F', '#E9C46A', '#E76F51']}

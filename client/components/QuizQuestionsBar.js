@@ -22,14 +22,22 @@ export default class QuizQuestionBar extends React.Component {
     for (let i = 1; i < dataset[0].length + 1; i++) {
       tickFormat.push(`Q${i}`)
     }
+    console.log('This is rendering from QuizBar')
     return (
-      <div>
-        <svg viewBox="0 0 300 300">
+      <div className="question-bar">
+        <h2>
+          Correct answer percentage indicated by{' '}
+          <font style={{color: '#E76F51'}}>red </font> bars, incorrect answer
+          percentage indicated by{' '}
+          <font style={{color: '#F4A261'}}>orange </font>{' '}
+        </h2>
+        <div className="victory-bar">
           <VictoryChart height={400} width={400} domainPadding={{x: 30, y: 20}}>
             <VictoryStack
               standalone={false}
               colorScale={['#F4A261', '#E76F51', 'gray']}
             >
+              {console.log('Rendering from inside victory component')}
               {dataset.map((data, i) => {
                 return <VictoryBar data={data} key={i} />
               })}
@@ -37,7 +45,7 @@ export default class QuizQuestionBar extends React.Component {
             <VictoryAxis dependentAxis tickFormat={tick => `${tick}%`} />
             <VictoryAxis tickFormat={tickFormat} />
           </VictoryChart>
-        </svg>
+        </div>
       </div>
     )
   }
