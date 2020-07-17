@@ -11,25 +11,24 @@ class TeacherSubjects extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="teacherSubject">
         <h1>My Subjects</h1>
         <AddRoom />
         <h2>Existing subjects</h2>
-        <ul>
-          {this.props.subjects && this.props.subjects.length ? (
-            this.props.subjects.map(subject => {
-              return (
-                <li key={subject.id}>
-                  <Link to={`/subjects/${subject.id}`}>
-                    {subject.name} {subject.roomCode}
-                  </Link>
-                </li>
-              )
-            })
-          ) : (
-            <li>No Subjects</li>
-          )}
-        </ul>
+
+        {this.props.subjects && this.props.subjects.length ? (
+          this.props.subjects.map(subject => {
+            return (
+              <p key={subject.id}>
+                <Link to={`/subjects/${subject.id}`}>
+                  {subject.name} {subject.roomCode}
+                </Link>
+              </p>
+            )
+          })
+        ) : (
+          <p>No Subjects</p>
+        )}
       </div>
     )
   }
