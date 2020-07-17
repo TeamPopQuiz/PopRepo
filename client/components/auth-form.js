@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
@@ -6,39 +6,79 @@ import {auth} from '../store'
 /**
  * COMPONENT
  */
-const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+class AuthForm extends Component {
+  constructor() {
+    super()
+    this.state = {role: ''}
+    this.handleChange = this.handleChange.bind(this)
+  }
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name={name} className="authform">
-        <h3>{name === 'login' ? 'Log In' : 'Sign Up'}</h3>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <label htmlFor="role">
-            <small>Role</small>
-          </label>
-          <input name="role" type="text" />
-        </div>
-        <div>
-          <button type="submit">{displayName.toUpperCase()}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+
+  render() {
+    const {name, displayName, handleSubmit, error} = this.props
+    return (
+      <div>
+        <form onSubmit={handleSubmit} name={name}>
+          {this.props.name === 'signup' ? (
+            <div>
+              <div>
+                <label htmlFor="firstname">
+                  <small>First Name</small>
+                </label>
+                <input name="firstname" type="text" />
+              </div>
+              <div>
+                <label htmlFor="lastname">
+                  <small>Last Name</small>
+                </label>
+                <input name="lastname" type="text" />
+              </div>
+            </div>
+          ) : null}
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
+          </div>
+          <div>
+            <label htmlFor="role">
+              <small>Role</small>
+            </label>
+            <select name="role" type="text" onChange={this.handleChange}>
+              <option />
+              <option>Teacher</option>
+              <option name="student" value="student">
+                Student
+              </option>
+            </select>
+          </div>
+          {this.state.role === 'student' && name === 'signup' ? (
+            <div>
+              <label htmlFor="teacher">
+                <small>Teacher</small>
+              </label>
+              <input name="teacher" type="text" />
+            </div>
+          ) : null}
+          <div>
+            <button type="submit">{displayName}</button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
         <a href="/auth/google">{displayName} with Google</a>
-      </form>
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 /**
@@ -68,11 +108,25 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
-      const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      const role = evt.target.role.value
-      dispatch(auth(email, password, role, formName))
+      console.log('inside dispatch')
+      if (evt.target.name === 'signup') {
+        let signinObj = {}
+        signinObj.formName = evt.target.name
+        signinObj.firstName = evt.target.firstname.value
+        signinObj.lastName = evt.target.lastname.value
+        signinObj.email = evt.target.email.value
+        signinObj.password = evt.target.password.value
+        signinObj.role = evt.target.role.value
+        signinObj.teacherFirstName = evt.target.teacher.value
+        dispatch(auth(signinObj))
+      } else {
+        let loginObj = {}
+        loginObj.formName = evt.target.name
+        loginObj.email = evt.target.email.value
+        loginObj.password = evt.target.password.value
+        loginObj.role = evt.target.role.value
+        dispatch(auth(loginObj))
+      }
     }
   }
 }
