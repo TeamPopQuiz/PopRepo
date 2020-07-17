@@ -26,8 +26,8 @@ export class LaunchQuiz extends React.Component {
   }
 
   reset() {
-    history.push(`/quizzes/${this.props.quizId}`)
     this.props.resetActiveQuizState()
+    history.push(`/quizzes/${this.props.quizId}`)
   }
 
   render() {

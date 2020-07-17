@@ -1,6 +1,8 @@
-* {
+/* * {
   background-color: #fffaf0;
-}
+  position: relative;
+  z-index: 1;
+} */
 
 body {
   font-family: 'Fredoka One', cursive;
@@ -277,4 +279,25 @@ form div {
 .making-quiz {
   display: flex;
   flex-direction: wrap;
+}
+
+.quiz-results-victory {
+  height: 200;
+  width: 200;
+}
+
+.results-text {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  font-style: normal;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+.results-text p {
+  font-size: larger;
+}
+
+.results-text.results-header {
+  display: flex;
 }
