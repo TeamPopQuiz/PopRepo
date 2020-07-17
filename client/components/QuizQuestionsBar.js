@@ -24,15 +24,20 @@ export default class QuizQuestionBar extends React.Component {
     }
     return (
       <div>
-        <VictoryChart height={400} width={400} domainPadding={{x: 30, y: 20}}>
-          <VictoryStack colorScale={['#F4A261', '#E76F51', 'gray']}>
-            {dataset.map((data, i) => {
-              return <VictoryBar data={data} key={i} />
-            })}
-          </VictoryStack>
-          <VictoryAxis dependentAxis tickFormat={tick => `${tick}%`} />
-          <VictoryAxis tickFormat={tickFormat} />
-        </VictoryChart>
+        <svg viewBox="0 0 300 300">
+          <VictoryChart height={400} width={400} domainPadding={{x: 30, y: 20}}>
+            <VictoryStack
+              standalone={false}
+              colorScale={['#F4A261', '#E76F51', 'gray']}
+            >
+              {dataset.map((data, i) => {
+                return <VictoryBar data={data} key={i} />
+              })}
+            </VictoryStack>
+            <VictoryAxis dependentAxis tickFormat={tick => `${tick}%`} />
+            <VictoryAxis tickFormat={tickFormat} />
+          </VictoryChart>
+        </svg>
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import React from 'react'
-import {VictoryPie, VictoryLabel, VictoryLegend} from 'victory'
+import {VictoryPie, VictoryLabel} from 'victory'
 
 export default class QuizResultsPie extends React.Component {
   render() {
