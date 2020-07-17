@@ -18,29 +18,20 @@ export default class QuizQuestionBar extends React.Component {
 
   render() {
     const dataset = this.transformData(this.props.dataset)
+    const tickFormat = []
+    for (let i = 1; i < dataset[0].length + 1; i++) {
+      tickFormat.push(`Q${i}`)
+    }
     return (
       <div>
         <VictoryChart height={400} width={400} domainPadding={{x: 30, y: 20}}>
-          <VictoryStack colorScale={['black', 'blue', 'tomato']}>
+          <VictoryStack colorScale={['#F4A261', '#E76F51', 'gray']}>
             {dataset.map((data, i) => {
               return <VictoryBar data={data} key={i} />
             })}
           </VictoryStack>
           <VictoryAxis dependentAxis tickFormat={tick => `${tick}%`} />
-          <VictoryAxis
-            tickFormat={[
-              'Q1',
-              'Q2',
-              'Q3',
-              'Q4',
-              'Q5',
-              'Q6',
-              'Q7',
-              'Q8',
-              'Q9',
-              'Q10'
-            ]}
-          />
+          <VictoryAxis tickFormat={tickFormat} />
         </VictoryChart>
       </div>
     )

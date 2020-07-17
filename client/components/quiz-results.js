@@ -2,11 +2,7 @@ import React, {Component} from 'react'
 import {getQuizData} from '../store/quizTemplate'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import Popup from 'reactjs-popup'
-import {VictoryPie, VictoryChart, VictoryBar, VictoryGroup} from 'victory'
-import studentGrades from '../../script/studentGrades'
 import QuizResultsPie from './QuizResultsPie'
-import QuizQuestion from './QuizQuestion'
 import QuizQuestionBar from './QuizQuestionsBar'
 
 class QuizResults extends Component {
@@ -40,50 +36,19 @@ class QuizResults extends Component {
     if (quiz.ticketQuestions) {
       questions = quiz.ticketQuestions
       allQuestionsTally = []
-      let correctArr = [
-        {x: 'Q1', y: 0},
-        {x: 'Q2', y: 0},
-        {x: 'Q3', y: 0},
-        {x: 'Q4', y: 0},
-        {x: 'Q5', y: 0},
-        {x: 'Q6', y: 0},
-        {x: 'Q7', y: 0},
-        {x: 'Q8', y: 0},
-        {x: 'Q9', y: 0},
-        {x: 'Q10', y: 0}
-      ]
-      let incorrectArr = [
-        {x: 'Q1', y: 0},
-        {x: 'Q2', y: 0},
-        {x: 'Q3', y: 0},
-        {x: 'Q4', y: 0},
-        {x: 'Q5', y: 0},
-        {x: 'Q6', y: 0},
-        {x: 'Q7', y: 0},
-        {x: 'Q8', y: 0},
-        {x: 'Q9', y: 0},
-        {x: 'Q10', y: 0}
-      ]
-      let noAnswerArr = [
-        {x: 'Q1', y: 0},
-        {x: 'Q2', y: 0},
-        {x: 'Q3', y: 0},
-        {x: 'Q4', y: 0},
-        {x: 'Q5', y: 0},
-        {x: 'Q6', y: 0},
-        {x: 'Q7', y: 0},
-        {x: 'Q8', y: 0},
-        {x: 'Q9', y: 0},
-        {x: 'Q10', y: 0}
-      ]
+      let correctArr = []
+      let incorrectArr = []
+      let noAnswerArr = []
+
+      for (let i = 0; i < questions.length; i++) {
+        correctArr.push({x: `Q${i + 1}`, y: 0})
+        incorrectArr.push({x: `Q${i + 1}`, y: 0})
+        noAnswerArr.push({x: `Q${i + 1}`, y: 0})
+      }
+
       questions.forEach(function(currQuestion, i) {
         currQuestion.students.forEach(currStudent => {
           let currAnswer = currStudent.students_ticketQuestions.correct
-          // if (!currStudent.students_ticketQuestions.correct) {
-          //   currAnswer = null
-          // } else {
-          //   currAnswer = currStudent.students_ticketQuestions.correct
-          // }
           if (currAnswer === true) {
             correctArr[i].y++
           } else if (currAnswer === false) {
