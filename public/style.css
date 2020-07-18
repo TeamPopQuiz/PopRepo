@@ -328,8 +328,7 @@ form div {
   font-size: 30px;
   padding: 30px;
   text-align: center;
-  background-color: #2a9d8f;
-  /*   margin-bottom: 80px; */
+  background-color: #e76f51;
 }
 
 .answer-btn {
@@ -466,4 +465,33 @@ form div {
 
 .results-text.results-header {
   display: flex;
+}
+
+/* teacher launch quiz view */
+
+.complete-container {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.complete-container p {
+  font-size: 25px;
+}
+
+.complete-q-name {
+  color: #e76f51;
+}
+
+#code {
+  font-size: 40px;
+  border: 2px solid #e76f51;
+  width: 200px;
+  margin: 50px auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.complete-q {
+  color: #e76f51;
+  text-decoration: underline;
 }

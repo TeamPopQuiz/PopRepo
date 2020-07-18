@@ -32,27 +32,24 @@ export class LaunchQuiz extends React.Component {
 
   render() {
     return this.props.currQuestion.noMoreQuestions ? (
-      <div>
-        <h2>Quiz Complete!</h2>
-        <em>Here are your results</em>
+      <div className="complete-container">
+        <h1>Quiz Complete!</h1>
+        <p>Click Here To See Your Results</p>
         <button type="button" onClick={this.reset}>
-          See Quiz Results
+          Quiz Results
         </button>
-        {/* <Link to={`api/quizzes/${this.props.quizId}`}>
-          <button type="button" onClick={this.reset}>
-            See Quiz Results
-          </button>
-        </Link> */}
       </div>
     ) : (
-      <div>
-        <h1>{this.props.quizDetails.quizName} MindPop Currently In Progress</h1>
-        <h2>{this.props.quizDetails.quizName} </h2>
-        <h2>
-          Give your students this code: {this.props.quizDetails.ticketCode}{' '}
-        </h2>
+      <div className="complete-container">
+        <h1>
+          <span className="complete-q-name">
+            {this.props.quizDetails.quizName}{' '}
+          </span>MindPop
+        </h1>
+        <h2>Give your students this code to join quiz:</h2>
+        <div id="code">{this.props.quizDetails.ticketCode}</div>
         <h3>Current Question</h3>
-        <h4>{this.props.currQuestion.question}</h4>
+        <p className="complete-q">{this.props.currQuestion.question}</p>
         <button type="button" onClick={this.launchQuiz}>
           Launch Quiz
         </button>
