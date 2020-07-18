@@ -69,12 +69,14 @@ User.prototype.createTeacherOrStudent = async function() {
       lastName: this.lastName
     })
     await this.setStudent(thisStudent)
-    let teacher = await Teacher.findOne({
-      where: {
-        lastName: this.teacherLastName.toLowerCase()
-      }
-    })
-    await thisStudent.setTeacher(teacher)
+    if (this.teacherLastName) {
+      let teacher = await Teacher.findOne({
+        where: {
+          lastName: this.teacherLastName.toLowerCase()
+        }
+      })
+      await thisStudent.setTeacher(teacher)
+    }
   }
 }
 

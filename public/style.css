@@ -95,7 +95,7 @@ nav a {
   bottom: 0;
   left: 0;
   padding-bottom: 20px;
-  margin-top: 30px;
+  margin-top: 300px;
 }
 
 .footerbackground {
@@ -111,9 +111,6 @@ nav a {
   margin-right: 4em;
   background: #e9d66b;
   width: 600px;
-}
-.footerbackground {
-  background-color: #e9d66b;
 }
 
 .github {

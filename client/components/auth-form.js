@@ -110,7 +110,6 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
-      console.log('inside dispatch')
       if (evt.target.name === 'signup') {
         let signinObj = {}
         signinObj.formName = evt.target.name
