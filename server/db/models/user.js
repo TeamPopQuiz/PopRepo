@@ -40,6 +40,10 @@ const User = db.define('user', {
   role: {
     type: Sequelize.ENUM('teacher', 'student'),
     allowNull: false
+  },
+  teacherLastName: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
 })
 
@@ -65,6 +69,14 @@ User.prototype.createTeacherOrStudent = async function() {
       lastName: this.lastName
     })
     await this.setStudent(thisStudent)
+    if (this.teacherLastName) {
+      let teacher = await Teacher.findOne({
+        where: {
+          lastName: this.teacherLastName.toLowerCase()
+        }
+      })
+      await thisStudent.setTeacher(teacher)
+    }
   }
 }
 
