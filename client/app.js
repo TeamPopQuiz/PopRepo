@@ -8,7 +8,7 @@ const App = props => {
     <div>
       <Navbar />
       <Routes id="maincontainer" />
-      {props.user.teacher ? <Footer /> : null}
+      {!props.user.student ? <Footer /> : null}
     </div>
   )
 }
