@@ -33,23 +33,28 @@ export class UserHome extends Component {
   }
 
   render() {
-    const {email} = this.props
+    const {email, user} = this.props
 
     return (
       <div className="student-home">
-        <h3>Welcome, {email}!</h3>
-        <h2>Enter Quiz Code</h2>
+        <h2>
+          Hi,{' '}
+          {user.firstName.slice(0, 1).toUpperCase() + user.firstName.slice(1)}!
+        </h2>
+        <h1>Please Enter Quiz Code</h1>
         <div>
-          <form onSubmit={this.handleSubmitCode}>
+          <form className="quiz-code-form" onSubmit={this.handleSubmitCode}>
             <label>
               <input
                 type="text"
                 name="quizCode"
+                className="student-home-input"
+                placeholder="code"
                 onChange={this.handleInputChangeCode}
                 value={this.state.quizCode}
               />
             </label>
-            <button className="quiz-code" type="submit">
+            <button className="quiz-code-btn" type="submit">
               Start Quiz!
             </button>
           </form>

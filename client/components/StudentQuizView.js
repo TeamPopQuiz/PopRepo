@@ -49,31 +49,44 @@ class StudentQuizView extends React.Component {
     let answerArr = shuffle([rightA, wrongA1, wrongA2, wrongA3])
     if (this.state.questionAnswered) {
       return (
-        <div>
-          <h2>You answered {this.state.studentAnswer} </h2>
+        <div className="s-quiz-view-div">
+          <div className="quiz-question">{question}</div>
+          <h2 id="you-answered">
+            You answered:<br />
+            <span id="display-answer">{this.state.studentAnswer}</span>
+          </h2>
         </div>
       )
     }
     return this.props.question.noMoreQuestions ? (
-      <div>
-        <h2>Congrats! You finished your MindPop!</h2>
-        <Link to="/home">
-          <button type="button" onClick={this.reset}>
-            Go To Home
-          </button>
-        </Link>
+      <div className="s-quiz-view-div">
+        <div className="completed-msg">
+          <h1>Congrats! You finished your MindPop!</h1>
+          <Link to="/home">
+            <button
+              type="button"
+              className="quiz-complete-home-btn"
+              onClick={this.reset}
+            >
+              Go To Home
+            </button>
+          </Link>
+        </div>
       </div>
     ) : !this.props.question.id ? (
-      <div>Please Wait, Quiz Will Start Soon</div>
+      <div className="s-quiz-view-div">
+        <h1 className="completed-msg">Please Wait, Quiz Will Start Soon</h1>
+      </div>
     ) : (
-      <div>
-        <ul>
-          <li>{question}</li>
-          <div>
+      <div className="s-quiz-view-div">
+        <div className="quiz-question">{question}</div>
+        <div className="buttons-container">
+          <div className="button-row">
             <button
               type="button"
               value={answerArr[0]}
               onClick={this.giveAnswer}
+              className="answer-btn a1-btn"
             >
               {answerArr[0]}
             </button>
@@ -81,15 +94,17 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[1]}
               onClick={this.giveAnswer}
+              className="answer-btn a2-btn"
             >
               {answerArr[1]}
             </button>
           </div>
-          <div>
+          <div className="button-row">
             <button
               type="button"
               value={answerArr[2]}
               onClick={this.giveAnswer}
+              className="answer-btn a3-btn"
             >
               {answerArr[2]}
             </button>
@@ -97,11 +112,12 @@ class StudentQuizView extends React.Component {
               type="button"
               value={answerArr[3]}
               onClick={this.giveAnswer}
+              className="answer-btn a4-btn"
             >
               {answerArr[3]}
             </button>
           </div>
-        </ul>
+        </div>
       </div>
     )
   }

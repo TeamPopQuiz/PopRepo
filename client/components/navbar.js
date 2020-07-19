@@ -13,7 +13,7 @@ const Navbar = ({handleClick, isLoggedIn, role}) => (
           {/* The navbar will show these links after you log in */}
           {role === 'teacher' ? (
             <div className="navbarbackground">
-              <Link to="/teacher-home">
+              <Link to="/home">
                 <button type="button">HOME</button>
               </Link>
               <Link to="/all-subjects">
@@ -30,9 +30,6 @@ const Navbar = ({handleClick, isLoggedIn, role}) => (
             <div className="navbarbackground">
               <Link to="/home">
                 <button type="button">HOME</button>
-              </Link>
-              <Link to="/quiz">
-                <button type="button">QUIZ</button>
               </Link>
               <Link onClick={handleClick}>
                 <button type="button">LOGOUT</button>

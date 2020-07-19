@@ -1,15 +1,22 @@
 import React from 'react'
 import {Navbar, Footer} from './components'
 import Routes from './routes'
+import {connect} from 'react-redux'
 
 const App = props => {
   return (
     <div>
       <Navbar />
       <Routes id="maincontainer" />
-      <Footer />
+      {!props.user.student ? <Footer /> : null}
     </div>
   )
 }
 
-export default App
+const mapState = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapState)(App)

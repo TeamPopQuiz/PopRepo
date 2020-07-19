@@ -39,7 +39,7 @@ class Routes extends Component {
           (this.props.role === 'teacher' ? (
             <Switch>
               {/* Routes placed here are only available after logging in */}
-              <Route path="/teacher-home" component={TeacherHome} />
+              <Route path="/home" component={TeacherHome} />
               <Route path="/createQuiz" component={CreateQuizForm} />
               <Route path="/subjects/:id" component={SingleSubject} />
               <Route path="/all-subjects" component={TeacherSubjects} />

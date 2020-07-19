@@ -249,11 +249,46 @@ form div {
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  /* top: 0; */
+  left: 0;
+  background-color: #e9c46a;
+}
+
+.student-home-input {
+  font-size: 30px;
+  text-align: center;
+  height: 40px;
+  width: 170px;
+  border-radius: 5px;
+  outline: none;
 }
 
 .student-home.quiz-code {
   display: flex;
   padding-bottom: 50px;
+}
+
+.quiz-code-btn {
+  font-size: 20px;
+  margin-top: 20px;
+  color: white;
+  background-color: #264653;
+  box-shadow: 0px 5px 0px 0px #1c333c;
+  border-radius: 5px;
+  height: 40px;
+  border: none;
+  outline: none;
+}
+
+.quiz-code-btn:hover {
+  background-color: #2f5767;
+}
+
+.quiz-code-form {
+  text-align: center;
 }
 
 .roster {
@@ -275,6 +310,135 @@ form div {
 .quiz-lists.statsClass {
   width: 100px;
   height: 50px;
+}
+
+/* student quiz view */
+
+.s-quiz-view-div {
+  display: flex;
+  flex-direction: column;
+  background-color: #e9c46a;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+}
+
+.quiz-question {
+  font-size: 30px;
+  padding: 30px;
+  text-align: center;
+  background-color: #e76f51;
+}
+
+.answer-btn {
+  font-size: 20px;
+  height: 180px;
+  width: 300px;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  overflow: auto;
+  border-radius: 5px;
+}
+
+.answer-btn:active,
+.quiz-code-btn:active,
+.quiz-complete-home-btn:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.a1-btn {
+  background-color: #4c4cff;
+  box-shadow: 0px 7px 0px 0px #0000bf;
+}
+
+.a1-btn:hover {
+  background-color: #7272ff;
+}
+
+.a2-btn {
+  background-color: #fe4a49;
+  box-shadow: 0px 7px 0px 0px #d10101;
+}
+
+.a2-btn:hover {
+  background-color: #fe6262;
+}
+
+.a3-btn {
+  background-color: #86e7b8;
+  box-shadow: 0px 7px 0px 0px #27c579;
+}
+
+.a3-btn:hover {
+  background-color: #a1ecc8;
+}
+
+.a4-btn {
+  background-color: #69309d;
+  box-shadow: 0px 7px 0px 0px #4a226f;
+}
+
+.a4-btn:hover {
+  background-color: #8947c6;
+}
+
+#buttons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.button-row button {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+/* after student selects answer */
+
+#display-answer {
+  text-decoration: underline;
+  font-size: 1.5em;
+  color: #264653;
+  padding: 100px;
+}
+
+#you-answered {
+  margin-top: 100px;
+  text-align: center;
+}
+
+/* student view after complete quiz -- back to home */
+
+.completed-msg {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.quiz-complete-home-btn {
+  font-size: 25px;
+  margin-top: 20px;
+  color: white;
+  background-color: #4c4cff;
+  box-shadow: 0px 5px 0px 0px #0000bf;
+  border-radius: 5px;
+  height: 40px;
+  border: none;
+  outline: none;
+}
+
+.quiz-complete-home-btn:hover {
+  background-color: #7272ff;
 }
 
 .making-quiz {
@@ -301,4 +465,33 @@ form div {
 
 .results-text.results-header {
   display: flex;
+}
+
+/* teacher launch quiz view */
+
+.complete-container {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.complete-container p {
+  font-size: 25px;
+}
+
+.complete-q-name {
+  color: #e76f51;
+}
+
+#code {
+  font-size: 40px;
+  border: 2px solid #e76f51;
+  width: 200px;
+  margin: 50px auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.complete-q {
+  color: #e76f51;
+  text-decoration: underline;
 }
