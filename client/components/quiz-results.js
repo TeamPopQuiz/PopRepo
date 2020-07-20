@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import QuizResultsPie from './QuizResultsPie'
 import QuizQuestionBar from './QuizQuestionsBar'
+import {format} from 'morgan'
 
 class QuizResults extends Component {
   componentDidMount() {
@@ -57,7 +58,7 @@ class QuizResults extends Component {
             noAnswerArr[i].y++
           }
         })
-        allQuestionsTally = [incorrectArr, correctArr, noAnswerArr]
+        allQuestionsTally = [correctArr, incorrectArr, noAnswerArr]
       })
     }
     //This calculates whether or not the quiz threshold was met
@@ -78,47 +79,55 @@ class QuizResults extends Component {
     }
     const displayNum = Math.floor(percentPerfect * 100)
     return (
-      <div>
-        <div className="results-text">
-          <h1 className="results-header">{quiz.quizName}</h1>
+      <div className="results-text">
+        <h1>{quiz.quizName}</h1>
+        <div>
           {quiz.teacher && quiz.ticketQuestions ? (
-            <div>
+            <div className="results-body">
               {percentPerfect * 100 >= threshold ? (
                 <h3 style={{color: '#2A9D8F'}}>
-                  Threshold met! {displayNum}% of your students received a 100%
-                  on the quiz.
+                  Threshold met! {displayNum}% of your students completed the
+                  quiz with a perfect score.
                 </h3>
               ) : (
                 <h3 style={{color: '#E76F51'}}>
-                  Threshold not met. {displayNum}% of your students received
-                  100% on the quiz.
+                  Threshold not met. {displayNum}% of your students completed
+                  the quiz with a perfect score.
                 </h3>
               )}
-              <h2>Teacher: </h2>
-              <p>{teacherName}</p>
-              <h2>Date: {date}</h2>
-              <h2>Threshold: {threshold}</h2>
-              <h2>Subject: {subject}</h2>
-              <h2>
-                Questions:{' '}
-                {questions.map(currQuest => (
-                  <li className="question-list" key={currQuest.id}>
-                    <Link
-                      to={`/quizzes/${currQuest.ticketTemplateId}/questions/${
-                        currQuest.id
-                      }`}
-                    >
-                      {currQuest.question}
-                    </Link>
-                  </li>
-                ))}
-              </h2>
+              <div>
+                <div className="results-body">
+                  <h2>Teacher: </h2>
+                  <p>{teacherName}</p>
+                  <h2>Date: </h2>
+                  <p>{date}</p>
+                  <h2>Threshold: </h2>
+                  <p>{threshold}</p>
+                  <h2>Subject: </h2>
+                  <p>{subject}</p>
+                </div>
+                <h2 className="quiz-question-list">
+                  Questions:{' '}
+                  {questions.map((currQuest, i) => (
+                    <li key={currQuest.id}>
+                      Q{i + 1}:
+                      <Link
+                        to={`/quizzes/${currQuest.ticketTemplateId}/questions/${
+                          currQuest.id
+                        }`}
+                      >
+                        {` ${currQuest.question}`}
+                      </Link>
+                    </li>
+                  ))}
+                </h2>
+              </div>
             </div>
           ) : (
             <h1>Undefined!</h1>
           )}
         </div>
-        <div className="quiz-results-victory">
+        <div className="victory-components-main">
           <QuizResultsPie
             finalPieData={finalPieData}
             quizName={quiz.quizName}

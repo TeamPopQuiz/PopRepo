@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {getQuizQuestion} from '../store/quizTemplate'
 import {connect} from 'react-redux'
-import {VictoryPie} from 'victory'
+import {VictoryPie, VictoryLabel} from 'victory'
+import {NavLink} from 'react-router-dom'
 
 class QuizQuestion extends Component {
   componentDidMount() {
@@ -24,13 +25,18 @@ class QuizQuestion extends Component {
         if (student.students_ticketQuestions.correct === true) {
           allAnswers.correct++
           correctStudents.push(`${student.firstName} ${student.lastName}`)
-        } else if (student.students_ticketQuestions.correct === false) {
+        } else if (
+          student.students_ticketQuestions.correct === false ||
+          student.students_ticketQuestions.corrext === null
+        ) {
           allAnswers.incorrect++
           incorrectStudents.push(`${student.firstName} ${student.lastName}`)
-        } else {
-          allAnswers.noAnswer++
-          noAnswerStudents.push(`${student.firstName} ${student.lastName}`)
         }
+        //Restore at a later time when we can calculate null answers
+        // else if (student.students_ticketQuestions.correct===null) {
+        //   allAnswers.noAnswer++
+        //   noAnswerStudents.push(`${student.firstName} ${student.lastName}`)
+        // }
         return accum
       }, {})
     }
@@ -44,31 +50,36 @@ class QuizQuestion extends Component {
     return (
       <div>
         {question ? (
-          <div>
+          <div className="results-text">
             <h1>{question.question}</h1>
             <VictoryPie
-              //height={200}
               origin={80}
-              height={150}
+              height={125}
               padding={30}
               colorScale={['tomato', 'orange', 'gold']}
               data={dataSet}
               labels={({datum}) => `${datum.x}: ${datum.y}`}
+              labelComponent={<VictoryLabel style={[{fontSize: 8}]} />}
               fixLabelOverlap={true}
             />
             <div className="quiz-lists">
               <h2 className="statsClass">
                 Correct:{' '}
-                {correctStudents.map(currStudent => <li>{currStudent}</li>)}
+                {correctStudents.map((currStudent, i) => (
+                  <li key={i}>{currStudent}</li>
+                ))}
               </h2>
               <h2 className="statsClass">
-                Incorrect:{' '}
-                {incorrectStudents.map(currStudent => <li>{currStudent}</li>)}
+                Incorrect/No Answer:{' '}
+                {incorrectStudents.map((currStudent, i) => (
+                  <li key={i}>{currStudent}</li>
+                ))}
               </h2>
-              <h2 className="statsClass">
+              {/* Restore at a later time when we can calculate null answers */}
+              {/* <h2 className="statsClass">
                 No Answer:{' '}
-                {noAnswerStudents.map(currStudent => <li>{currStudent}</li>)}
-              </h2>
+                {noAnswerStudents.map((currStudent, i) => <li key={i}>{currStudent}</li>)}
+              </h2> */}
             </div>
           </div>
         ) : (
