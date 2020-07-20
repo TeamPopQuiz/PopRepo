@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import QuizResultsPie from './QuizResultsPie'
 import QuizQuestionBar from './QuizQuestionsBar'
-import {format} from 'morgan'
 
 class QuizResults extends Component {
   componentDidMount() {
