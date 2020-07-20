@@ -61,10 +61,10 @@ export default class QuizResultsPie extends React.Component {
         <div>
           {scoreQuartiles ? (
             <div>
-              <p>{scoreQuartiles[0].y} students scored below 50%</p>
-              <p>{scoreQuartiles[1].y} students scored between 50-75%</p>
-              <p>{scoreQuartiles[2].y} students scored between 75-99%</p>
-              <p>{scoreQuartiles[3].y} students scored 100%</p>{' '}
+              <p>{scoreQuartiles[3].y} students scored below 50%</p>
+              <p>{scoreQuartiles[2].y} students scored between 50-75%</p>
+              <p>{scoreQuartiles[1].y} students scored between 75-99%</p>
+              <p>{scoreQuartiles[0].y} students scored 100%</p>{' '}
             </div>
           ) : (
             <p>No score data available!</p>

@@ -38,7 +38,7 @@ export default class QuizQuestionBar extends React.Component {
             padding={{left: 30, bottom: 20}}
             domainPadding={{x: 30, y: 20}}
           >
-            <VictoryStack colorScale={['#5E5D5C', '#E76F51', 'gray']}>
+            <VictoryStack colorScale={['#E76F51', '#5E5D5C']}>
               {dataset.map((data, i) => {
                 return <VictoryBar barRatio={0.7} data={data} key={i} />
               })}

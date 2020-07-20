@@ -53,7 +53,7 @@ class QuizQuestion extends Component {
           <div className="results-text">
             <h1>{question.question}</h1>
             <VictoryPie
-              origin={80}
+              origin={{x: 200, y: 60}}
               height={125}
               padding={30}
               colorScale={['tomato', 'orange', 'gold']}
