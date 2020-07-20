@@ -23,27 +23,41 @@ export default class QuizQuestionBar extends React.Component {
       tickFormat.push(`Q${i}`)
     }
     return (
-      <div className="question-bar">
-        <h2>
+      <div className="quiz-results-victory">
+        <h2>Performance by Question:</h2>
+        <p>
           Correct answer percentage indicated by{' '}
-          <font style={{color: '#E76F51'}}>red </font> bars, incorrect answer
-          percentage indicated by{' '}
-          <font style={{color: '#F4A261'}}>orange </font>{' '}
-        </h2>
-        <div className="victory-bar">
-          <VictoryChart height={400} width={400} domainPadding={{x: 30, y: 20}}>
-            <VictoryStack
-              standalone={false}
-              colorScale={['#F4A261', '#E76F51', 'gray']}
-            >
+          <b style={{color: '#E76F51'}}>red </b> bars, incorrect or no-answer
+          percentage indicated by <b style={{color: '#5E5D5C'}}>grey.</b>{' '}
+        </p>
+        <svg viewBox="0 0 300 185">
+          <VictoryChart
+            standalone={false}
+            height={180}
+            width={290}
+            padding={{left: 30, bottom: 20}}
+            domainPadding={{x: 30, y: 20}}
+          >
+            <VictoryStack colorScale={['#5E5D5C', '#E76F51', 'gray']}>
               {dataset.map((data, i) => {
-                return <VictoryBar data={data} key={i} />
+                return <VictoryBar barRatio={0.7} data={data} key={i} />
               })}
             </VictoryStack>
-            <VictoryAxis dependentAxis tickFormat={tick => `${tick}%`} />
-            <VictoryAxis tickFormat={tickFormat} />
+            <VictoryAxis
+              dependentAxis
+              style={{
+                tickLabels: {fontSize: 8, padding: 5}
+              }}
+              tickFormat={tick => `${tick}%`}
+            />
+            <VictoryAxis
+              style={{
+                tickLabels: {fontSize: 8, padding: 5}
+              }}
+              tickFormat={tickFormat}
+            />
           </VictoryChart>
-        </div>
+        </svg>
       </div>
     )
   }

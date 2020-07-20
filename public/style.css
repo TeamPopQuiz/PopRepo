@@ -299,18 +299,6 @@ form div {
   margin-left: 100px;
   margin-top: 50px;
 }
-.quiz-lists {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  flex-grow: 3;
-  flex-basis: 0;
-}
-
-.quiz-lists.statsClass {
-  width: 100px;
-  height: 50px;
-}
 
 /* student quiz view */
 
@@ -446,25 +434,81 @@ form div {
   flex-direction: wrap;
 }
 
+/* Quiz results styling */
+
 .quiz-results-victory {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  text-align: center;
   height: 200;
   width: 200;
+  padding-top: 30px;
+  border: 1px solid black;
+}
+
+.victory-components-main {
+  display: flex;
+  padding-left: 400px;
+  padding-right: 400px;
+  padding-top: 30px;
+  flex-flow: space-evenly;
+  align-items: center;
+  flex-grow: 2;
 }
 
 .results-text {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-flow: column;
   font-style: normal;
-  padding-top: 20px;
+  padding-top: 30px;
   padding-left: 20px;
 }
 .results-text p {
-  font-size: larger;
+  font-size: x-large;
+  justify-items: center;
+  text-align: center;
+  padding-bottom: 10px;
+  font-family: 'Roboto', sans-serif;
 }
 
-.results-text.results-header {
+.results-text h3 {
+  justify-items: center;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.quiz-question-list li {
+  text-align: left;
+}
+
+.results-body {
   display: flex;
+  flex-flow: column;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.quiz-lists {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  justify-content: space-evenly;
+  flex-grow: 3;
+  flex-basis: 0;
+}
+
+.statsClass {
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.statsClass li {
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* teacher launch quiz view */
